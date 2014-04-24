@@ -49,7 +49,7 @@
             %ul.nav.navbar-nav.navbar-right
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                  Account
+                  = current_user.email
                   %b.caret
                 %ul.dropdown-menu
                   %li

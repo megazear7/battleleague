@@ -69,6 +69,14 @@ class ArmiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def army_params
-      params[:army]
+      params.require(:army).permit(
+        :name,
+        :description,
+        :army_type,
+        :point_cost,
+        :movement_rate,
+        :game_id,
+        :user_id
+      )
     end
 end

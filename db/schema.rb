@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424191832) do
+ActiveRecord::Schema.define(version: 20140424195019) do
 
   create_table "armies", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "point_cost"
-    t.string   "type"
+    t.string   "army_type"
     t.integer  "movement_rate"
     t.integer  "game_id"
     t.integer  "space_id"

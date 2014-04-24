@@ -1,6 +1,10 @@
 .text-center
   %h2= @map.name
-  %p= @map.description
+  %p
+    = @map.description
+    %br
+    The game that this map is apart of is
+    = link_to @map.game.name, @map.game
 
 - @map.width.times do |x|
   .space-row

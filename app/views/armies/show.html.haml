@@ -1,6 +1,10 @@
-%p#notice= notice
+.text-center
+  %h2= @army.name
+  %p= @army.description
+  %p
+    This army is fighting in 
+    = link_to @army.game.name, @army.game
 
-
-= link_to 'Edit', edit_army_path(@army)
+= link_to 'Edit', edit_army_path(@army), class: "btn btn-link"
 \|
-= link_to 'Back', armies_path
+= link_to 'Back', armies_path, class: "btn btn-link"

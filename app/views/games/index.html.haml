@@ -1,17 +1,19 @@
 %h1 Listing games
 
-%table
+%table.table.table-hover.table-responsive
   %tr
-    %th
-    %th
-    %th
+    %th Name
+    %th Rule Set
+    %th Map Name
+    %td
 
   - @games.each do |game|
     %tr
-      %td= link_to 'Show', game
-      %td= link_to 'Edit', edit_game_path(game)
-      %td= link_to 'Destroy', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to game.name, game, class: "btn btn-link"
+      %td= game.rule_set
+      %td= game.map.name
+      %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
 
 %br
 
-= link_to 'New Game', new_game_path
+= link_to 'New Game', new_game_path, class: "btn btn-link"

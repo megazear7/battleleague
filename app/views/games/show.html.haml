@@ -4,6 +4,9 @@
   %p=  @game.description
   %p=  @game.objective
   %p=  @game.details
+  %p
+    The map used for this game is
+    = link_to @game.map.name, @game.map
 
 = link_to 'Edit', edit_game_path(@game)
 \|
