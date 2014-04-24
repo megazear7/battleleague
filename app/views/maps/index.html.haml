@@ -1,17 +1,19 @@
 %h1 Listing maps
 
-%table
+%table.table.table-hover.table-responsive
   %tr
-    %th
-    %th
-    %th
+    %th Name
+    %th Width
+    %th Height
+    %th Destroy
 
   - @maps.each do |map|
     %tr
-      %td= link_to 'Show', map
-      %td= link_to 'Edit', edit_map_path(map)
-      %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to map.name, map, class: "btn btn-link"
+      %td= map.width
+      %td= map.height
+      %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
 
 %br
 
-= link_to 'New Map', new_map_path
+= link_to 'New Map', new_map_path, class: "btn btn-link"

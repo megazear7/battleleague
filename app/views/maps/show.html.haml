@@ -1,6 +1,8 @@
 %p#notice= notice
 
+- @map.width.times do |x|
+  - @map.height.times do |y|
+    %span.space{ style: "width: #{500/@map.width}px; height: #{500/@map.height}px" }= @map.spaces.where(x_cord: x+1, y_cord: y+1).first.terrain
+  %br
 
-= link_to 'Edit', edit_map_path(@map)
-\|
-= link_to 'Back', maps_path
+= link_to 'Back', maps_path, class: "btn btn-link"

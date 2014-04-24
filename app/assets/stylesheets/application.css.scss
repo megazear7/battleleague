@@ -13,4 +13,10 @@
  *= require_tree ../../../vendor/assets/stylesheets/
  */
 
+.space {
+  display: inline-block;
+  background-color: green;
+  margin-bottom: 2px;
+}
+
 @import "bootstrap";

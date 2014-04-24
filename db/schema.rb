@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424121105) do
+ActiveRecord::Schema.define(version: 20140424175502) do
 
   create_table "armies", force: true do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140424121105) do
     t.integer  "map_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "rule_set"
   end
 
   create_table "maps", force: true do |t|

@@ -26,6 +26,20 @@ class MapsController < ApplicationController
   def create
     @map = Map.new(map_params)
 
+    width = params[:width].to_i
+    height = params[:height].to_i
+
+    if width > 20 or height > 20
+      format.html { render action: 'new' }
+    end
+
+    @map.save
+    width.times do |x|
+      height.times do |y|
+        @map.spaces.create({x_cord: x+1, y_cord: y+1, terrain: "Terrain Unknown"})
+      end
+    end
+
     respond_to do |format|
       if @map.save
         format.html { redirect_to @map, notice: 'Map was successfully created.' }
@@ -69,6 +83,9 @@ class MapsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def map_params
-      params[:map]
+      params.require(:map).permit(
+        :name,
+        :description
+      )
     end
 end
