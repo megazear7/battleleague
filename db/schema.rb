@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424175502) do
+ActiveRecord::Schema.define(version: 20140424191832) do
 
   create_table "armies", force: true do |t|
     t.string   "name"
@@ -36,11 +36,16 @@ ActiveRecord::Schema.define(version: 20140424175502) do
     t.text     "description"
     t.text     "objective"
     t.text     "details"
-    t.integer  "game_master_id"
     t.integer  "map_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "rule_set"
+    t.integer  "game_master_id"
+  end
+
+  create_table "games_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "game_id"
   end
 
   create_table "maps", force: true do |t|
@@ -77,10 +82,5 @@ ActiveRecord::Schema.define(version: 20140424175502) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "users_games", id: false, force: true do |t|
-    t.integer "user_id"
-    t.integer "game_id"
-  end
 
 end
