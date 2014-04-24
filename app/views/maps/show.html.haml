@@ -1,8 +1,10 @@
-%p#notice= notice
+.text-center
+  %h2= @map.name
+  %p= @map.description
 
 - @map.width.times do |x|
-  - @map.height.times do |y|
-    %span.space{ style: "width: #{500/@map.width}px; height: #{500/@map.height}px" }= @map.spaces.where(x_cord: x+1, y_cord: y+1).first.terrain
-  %br
+  .space-row
+    - @map.height.times do |y|
+      %span.space{ style: "width: #{500/@map.width}px; height: #{500/@map.height}px" }= @map.spaces.where(x_cord: x+1, y_cord: y+1).first.terrain
 
 = link_to 'Back', maps_path, class: "btn btn-link"

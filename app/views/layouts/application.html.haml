@@ -73,8 +73,10 @@
               %li
                 = link_to "Login", new_user_session_path
     .container
-      %p.notice= notice
-      %p.alert= alert
+      - if notice
+        %p.notice= notice
+      - if alert
+        %p.alert= alert
       = yield
   %body
 %html
