@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :armies
 
-  # this part still needs worked out:
   has_and_belongs_to_many :games
   # http://stackoverflow.com/questions/18690700/multiple-has-many-relationships-to-same-model
   has_many :games_as_master, through: :game_masters, source: :games
