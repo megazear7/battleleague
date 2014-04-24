@@ -1,17 +1,19 @@
 %h1 Listing armies
 
-%table
+%table.table.table-hover.table-responsive
   %tr
-    %th
-    %th
-    %th
+    %th Name
+    %th Army Type
+    %th Point Cost
+    %th Game
 
   - @armies.each do |army|
     %tr
-      %td= link_to 'Show', army
-      %td= link_to 'Edit', edit_army_path(army)
-      %td= link_to 'Destroy', army, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to army.name, army, class: "btn btn-link"
+      %td= army.army_type
+      %td= army.point_cost
+      %td= link_to army.game.name, army.game, class: "btn btn-link"
 
 %br
 
-= link_to 'New Army', new_army_path
+= link_to 'New Army', new_army_path, class: "btn btn-link"
