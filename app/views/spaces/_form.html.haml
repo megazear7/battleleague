@@ -1,0 +1,10 @@
+= form_for @space do |f|
+  - if @space.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@space.errors.count, "error")} prohibited this space from being saved:"
+      %ul
+        - @space.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

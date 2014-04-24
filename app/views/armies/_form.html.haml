@@ -1,0 +1,10 @@
+= form_for @army do |f|
+  - if @army.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@army.errors.count, "error")} prohibited this army from being saved:"
+      %ul
+        - @army.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

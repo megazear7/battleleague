@@ -11,7 +11,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424003352) do
+ActiveRecord::Schema.define(version: 20140424005848) do
+
+  create_table "armies", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "point_cost"
+    t.string   "type"
+    t.integer  "movement_rate"
+    t.integer  "game_id"
+    t.integer  "space_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "objective"
+    t.text     "details"
+    t.integer  "game_master_id"
+    t.integer  "map_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "maps", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spaces", force: true do |t|
+    t.integer  "x_cord"
+    t.integer  "y_cord"
+    t.string   "terrain"
+    t.integer  "map_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -31,5 +71,10 @@ ActiveRecord::Schema.define(version: 20140424003352) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "users_games", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "game_id"
+  end
 
 end

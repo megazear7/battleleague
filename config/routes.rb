@@ -1,4 +1,12 @@
 Battleleague::Application.routes.draw do
+  resources :armies
+
+  resources :spaces
+
+  resources :maps
+
+  resources :games
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
