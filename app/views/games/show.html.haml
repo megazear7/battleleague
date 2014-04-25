@@ -8,9 +8,12 @@
     The map used for this game is
     = link_to @game.map.name, @game.map
 
-.map-container
-  = display @game.map do |space|
-    = display space
+%hr
+%p
+  Armies:
+  = @game.armies.pluck("name")
+
+= render "maps/map", map: @game.map
 
 = link_to 'Edit', edit_game_path(@game)
 \|
