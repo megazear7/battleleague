@@ -7,13 +7,6 @@
       The game that this map is apart of is
       = link_to @map.game.name, @map.game
 
-- @map.width.times do |x|
-  .space-row
-    - @map.height.times do |y|
-      %span.space{ style: "width: #{500/@map.width}px; height: #{500/@map.height}px" }
-        - if space = @map.spaces.where(x_cord: x+1, y_cord: y+1).first
-          = space.terrain
-        - else
-          Terrain Unknown
+= map @map
 
 = link_to 'Back', maps_path, class: "btn btn-link"
