@@ -11,7 +11,7 @@
     .col-md-3
       = f.input :rule_set, input_html: { class: "string form-control" }
     .col-md-3
-      = f.association :map, collection: Map.joins(:game).where("games.map_id IS NOT NULL"), input_html: { class: "dropdown form-control" }
+      = f.association :map, collection: Map.joins(:game).where("games.map_id IS NULL"), input_html: { class: "dropdown form-control" }
   .row
     .col-md-9
       = f.input :description, input_html: { class: "string form-control" }
