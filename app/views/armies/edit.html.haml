@@ -1,6 +1,26 @@
 %h1 Editing army
 
-= render 'form'
+= simple_form_for @army do |f|
+  - if @army.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@army.errors.count, "error")} prohibited this army from being saved:"
+      %ul
+        - @army.errors.full_messages.each do |msg|
+          %li= msg
+
+  .row
+    .col-md-2
+      = f.input :x_cord, input_html: { class: "string form-control" }
+    .col-md-2
+      = f.input :y_cord, input_html: { class: "string form-control" }
+
+
+  %br
+  .actions
+    = f.submit 'Save', class: "btn btn-primary"
+ 
+
+-# render 'form'
 
 = link_to 'Show', @army, class: "btn btn-link"
 \|

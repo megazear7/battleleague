@@ -4,7 +4,7 @@ class ArmiesController < ApplicationController
   # GET /armies
   # GET /armies.json
   def index
-    @armies = Army.all
+    @armies = Army.all.where(user: current_user)
   end
 
   # GET /armies/1
@@ -75,6 +75,8 @@ class ArmiesController < ApplicationController
         :army_type,
         :point_cost,
         :movement_rate,
+        :x_cord,
+        :y_cord,
         :game_id,
         :user_id
       )

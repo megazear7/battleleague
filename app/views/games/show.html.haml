@@ -1,19 +1,23 @@
+.row
 
-.text-center
-  %h2= @game.name
-  %p=  @game.description
-  %p=  @game.objective
-  %p=  @game.details
-  %p
-    The map used for this game is
-    = link_to @game.map.name, @game.map
+  .col-md-6
+    .text-center
+      %h2= @game.name
+      %p=  @game.description
+      %p=  @game.objective
+      %p=  @game.details
+      %p
+        The map used for this game is
+        = link_to @game.map.name, @game.map
 
-%hr
-%p
-  Armies:
-  = @game.armies.pluck("name")
+    %hr
+    %p
+      Armies:
+      - @game.armies.each do |army|
+        %p= army.name
 
-= render "maps/map", map: @game.map
+  .col-md-6
+    = render "maps/map", map: @game.map
 
 = link_to 'Edit', edit_game_path(@game)
 \|

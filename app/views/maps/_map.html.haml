@@ -4,9 +4,9 @@
       - space = map.spaces.where(x_cord: x, y_cord: y).first
       - space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "Terrain Unknown", map: map) if not space
       %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "width: #{500/space.map.width}px; height: #{500/space.map.height}px; position: absolute; bottom: #{(510/space.map.height) * (space.y_cord-1)}px; left: #{(510/space.map.width) * (space.x_cord-1)}px;"} 
-        - if map.game
+        - if map.game and current_user
           - armies = map.game.armies.where(x_cord: x+1, y_cord: y+1)
           - armies.each do |army|
             - if army.user == current_user or army.close_to(current_user)
-              = army.name + "(" + army.user.name + ")"
-        
+              = link_to army.name, army
+              = "(" + army.user.name + ")"
