@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = current_user.games
+    @games = current_user ? current_user.games : []
   end
 
   # GET /games/1

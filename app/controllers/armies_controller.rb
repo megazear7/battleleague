@@ -26,6 +26,8 @@ class ArmiesController < ApplicationController
   def create
     @army = Army.new(army_params)
 
+    @army.user.games << @army.game
+
     respond_to do |format|
       if @army.save
         format.html { redirect_to @army, notice: 'Army was successfully created.' }
