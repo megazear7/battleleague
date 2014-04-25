@@ -8,11 +8,12 @@
     %th Destroy
 
   - @maps.each do |map|
-    %tr
-      %td= link_to map.name, map, class: "btn btn-link"
-      %td= map.width
-      %td= map.height
-      %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
+    - if not map.game
+      %tr
+        %td= link_to map.name, map, class: "btn btn-link"
+        %td= map.width
+        %td= map.height
+        %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
 
 %br
 

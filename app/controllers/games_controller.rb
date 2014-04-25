@@ -26,6 +26,14 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
+    @game.save
+
+    map = Map.find(params[:game][:map_id]) 
+    @game.map = map.dup
+    @game.map.save
+    @game.map.spaces.create({x_cord: map.width, y_cord: map.height, terrain: "Terrain Unknown"})
+    @game.map.save
+
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
@@ -72,7 +80,6 @@ class GamesController < ApplicationController
       params.require(:game).permit(
         :name,
         :rule_set,
-        :map_id,
         :description,
         :objective,
         :details,

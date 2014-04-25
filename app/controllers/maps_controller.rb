@@ -34,11 +34,7 @@ class MapsController < ApplicationController
     end
 
     @map.save
-    width.times do |x|
-      height.times do |y|
-        @map.spaces.create({x_cord: x+1, y_cord: y+1, terrain: "Terrain Unknown"})
-      end
-    end
+    @map.spaces.create({x_cord: width, y_cord: height, terrain: "Terrain Unknown"})
 
     respond_to do |format|
       if @map.save
