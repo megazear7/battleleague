@@ -5,6 +5,16 @@ class Army < ActiveRecord::Base
 
   validate :cordinates_with_limits
 
+  def allied_to user
+    armies = []
+    user.armies.where(game: self.game).each do |army|
+      if army.alliance == self.alliance
+        return true
+      end
+    end
+    return false
+  end
+
   def cordinates_with_limits
     if x_cord and y_cord
       if x_cord > game.map.width or x_cord < 1

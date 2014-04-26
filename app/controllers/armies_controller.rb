@@ -31,10 +31,10 @@ class ArmiesController < ApplicationController
 
     @army.turn_count = 0
 
-    @army.game.armies.each do |army|
-      army.turn_count += 1 if army.turn_count != 0
-      army.save
-    end
+    #@army.game.armies.each do |army|
+    #  army.turn_count += 1 if army.turn_count != 0
+    #  army.save
+    #end
 
     respond_to do |format|
       if @army.save
