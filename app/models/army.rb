@@ -2,13 +2,17 @@ class Army < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   belongs_to :alliance
+  validates :movement_rate, presence: true
+  validates :game_id, presence: true
+  validates :name, presence: true
+  
 
   validate :cordinates_with_limits
 
   def allied_to user
     armies = []
     user.armies.where(game: self.game).each do |army|
-      if army.alliance == self.alliance
+      if self.alliance and army.alliance == self.alliance 
         return true
       end
     end

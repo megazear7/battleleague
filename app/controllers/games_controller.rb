@@ -25,9 +25,7 @@ class GamesController < ApplicationController
     # HACK WARNING!!!
     @games.each do |game|
       @games = @games - [game] if @games.include? game
-    end
-    current_user.games_as_master.each do |game|
-      @games << game if not @games.include? game
+      @games << game
     end
   end
 
