@@ -45,6 +45,8 @@
               %td.my-next-turn 
                 = army.turn_count
                 &nbsp;(Next Move)
+            - elsif army.turn_count == 0
+              %td= link_to "Needs Placed", edit_army_path(army)
             - else
               %td= army.turn_count
           - else
@@ -57,6 +59,8 @@
               %td.enemy-next-turn 
                 = army.turn_count
                 &nbsp;(Next Move)
+            - elsif army.turn_count == 0
+              %td Not Placed
             - else
               %td= army.turn_count
   .col-md-6
