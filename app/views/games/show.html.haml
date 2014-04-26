@@ -63,9 +63,9 @@
               %td Not Placed
             - else
               %td= army.turn_count
+    %p.left-margin * Remember that you might not be close enough to see some enemy armies!
   .col-md-6
     = render "maps/map", map: @game.map
-    %p.left-margin Remember that you might not be close enough to see some enemy armies!
 
 .btn-group
   = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
