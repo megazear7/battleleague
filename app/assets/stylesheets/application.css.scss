@@ -49,4 +49,14 @@
   text-decoration:underline;
 }
 
+.my-next-turn {
+  font-weight: bold;
+  color: rgb(89, 168, 45);
+}
+
+.enemy-next-turn {
+  font-weight: bold;
+  color: rgb(221, 32, 32);
+}
+
 @import "bootstrap";

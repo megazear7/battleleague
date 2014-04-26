@@ -1,6 +1,15 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
+  def set_turns
+    @game = Game.find(params[:game_id])
+    @game.armies.each_with_index do |army, i|
+      army.turn_count = i + 1
+      army.save
+    end
+    redirect_to @game
+  end
+
   # GET /games
   # GET /games.json
   def index

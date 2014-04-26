@@ -29,6 +29,12 @@ class ArmiesController < ApplicationController
 
     @army.user.games << @army.game
 
+    @army.turn_count = 0
+
+    @army.game.armies.each do |army|
+      army.turn_count += 1
+    end
+
     respond_to do |format|
       if @army.save
         format.html { redirect_to @army, notice: 'Army was successfully created.' }
@@ -43,10 +49,22 @@ class ArmiesController < ApplicationController
   # PATCH/PUT /armies/1
   # PATCH/PUT /armies/1.json
   def update
-    if not @army.move_check params[:army][:x_cord], params[:army][:y_cord]
+
+    if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
       redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
       return
+    elsif @army != @army.game.current_army
+      redirect_to edit_army_path(@army), notice: "It is not this armies turn, it will be in " + (@army.game.current_army.turn_count - @army.turn_count).to_s + " turns"
+      return
     end
+
+    @army.turn_count = 0
+    @army.save
+    @army.game.armies.each do |army|
+      army.turn_count += 1
+      army.save
+    end
+
     respond_to do |format|
       if @army.update(army_params)
         if @army.game

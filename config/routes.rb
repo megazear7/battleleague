@@ -5,7 +5,9 @@ Battleleague::Application.routes.draw do
 
   resources :maps
 
-  resources :games
+  resources :games do
+    get 'set_turns'
+  end
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

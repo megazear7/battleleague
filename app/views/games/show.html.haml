@@ -23,6 +23,7 @@
         %th Player
         %th Army Type
         %th Point Cost
+        %th Turn Count
       - @game.armies.each do |army|
         %tr
           - if army.user == current_user
@@ -31,16 +32,30 @@
             %td  You
             %td= army.army_type
             %td= army.point_cost
+            - if army == @game.current_army
+              %td.my-next-turn 
+                = army.turn_count
+                &nbsp;(Next Move)
+            - else
+              %td= army.turn_count
           - else
             %td= army.name
+            %td
             %td= army.user.name
             %td= army.army_type
             %td= army.point_cost
+            - if army == @game.current_army
+              %td.enemy-next-turn 
+                = army.turn_count
+                &nbsp;(Next Move)
+            - else
+              %td= army.turn_count
   .col-md-6
     = render "maps/map", map: @game.map
 
 .btn-group
   = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
   = link_to 'Back', games_path, class: "btn btn-default"
+  = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
 %br
 %br
