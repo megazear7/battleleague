@@ -53,7 +53,7 @@ class ArmiesController < ApplicationController
     if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
       redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
       return
-    elsif @army != @army.game.current_army
+    elsif (@army != @army.game.current_army) and (@army.x_cord and @army.y_cord)
       redirect_to edit_army_path(@army), notice: "It is not this armies turn, it will be in " + (@army.game.current_army.turn_count - @army.turn_count).to_s + " turns"
       return
     end

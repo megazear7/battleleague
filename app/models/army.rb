@@ -5,20 +5,24 @@ class Army < ActiveRecord::Base
   validate :cordinates_with_limits
 
   def cordinates_with_limits
-    if x_cord > game.map.width or x_cord < 1
-      errors.add(:x_cord, "Coordinates not in the bounds of the map")
-    elsif y_cord > game.map.height or y_cord < 1
-      errors.add(:y_cord, "Coordinates not in the bounds of the map")
+    if x_cord and y_cord
+      if x_cord > game.map.width or x_cord < 1
+        errors.add(:x_cord, "Coordinates not in the bounds of the map")
+      elsif y_cord > game.map.height or y_cord < 1
+        errors.add(:y_cord, "Coordinates not in the bounds of the map")
+      end
     end
   end
 
   def move_check x, y
-    x = x.to_i
-    y = y.to_i
-    if x - self.x_cord > self.movement_rate or x - self.x_cord < -1 * self.movement_rate
-      return false
-    elsif y - self.y_cord > self.movement_rate or y - self.y_cord < -1 * self.movement_rate
-      return false
+    if self.x_cord and self.y_cord
+      x = x.to_i
+      y = y.to_i
+      if x - self.x_cord > self.movement_rate or x - self.x_cord < -1 * self.movement_rate
+        return false
+      elsif y - self.y_cord > self.movement_rate or y - self.y_cord < -1 * self.movement_rate
+        return false
+      end
     end
     return true
   end

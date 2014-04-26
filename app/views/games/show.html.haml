@@ -34,6 +34,8 @@
             %td= link_to army.name, army
             - if army == @game.current_army
               %td= link_to "Move", edit_army_path(army)
+            - elsif not (army.x_cord and army.y_cord)
+              %td= link_to "Place Army", edit_army_path(army)
             - else
               %td
             %td  You
