@@ -1,6 +1,10 @@
-%p#notice= notice
+%h1= @alliance.name
 
+- @alliance.armies.each do |army|
+  %p army.name
 
-= link_to 'Edit', edit_alliance_path(@alliance)
-\|
-= link_to 'Back', alliances_path
+.btn-group
+  = link_to 'Edit', edit_alliance_path(@alliance), class: "btn btn-default"
+  = link_to 'Back', alliances_path, class: "btn btn-default"
+%br
+%br

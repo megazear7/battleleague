@@ -1,7 +1,9 @@
 Battleleague::Application.routes.draw do
   resources :alliances
 
-  resources :armies
+  resources :armies do
+    get 'form_alliance'
+  end
 
   resources :spaces
 

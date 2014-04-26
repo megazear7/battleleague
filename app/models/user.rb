@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :armies
+  has_many :armies, dependent: :destroy
 
   has_and_belongs_to_many :games
   has_many :games_as_master, :foreign_key => 'game_master_id', :class_name => "Game"

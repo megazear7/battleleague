@@ -32,12 +32,13 @@ class ArmiesController < ApplicationController
     @army.turn_count = 0
 
     @army.game.armies.each do |army|
-      army.turn_count += 1
+      army.turn_count += 1 if army.turn_count != 0
+      army.save
     end
 
     respond_to do |format|
       if @army.save
-        format.html { redirect_to @army, notice: 'Army was successfully created.' }
+        format.html { redirect_to @army.game, notice: 'Army was successfully created.' }
         format.json { render action: 'show', status: :created, location: @army }
       else
         format.html { render action: 'new' }
@@ -46,9 +47,24 @@ class ArmiesController < ApplicationController
     end
   end
 
+  def form_alliance
+    @army = Army.find(params[:army_id])
+  end
+
   # PATCH/PUT /armies/1
   # PATCH/PUT /armies/1.json
   def update
+    alliance_id = params[:army][:alliance_id]
+    if alliance_id 
+      @army.alliance = Alliance.find(alliance_id)
+      @army.save
+      @army.user.armies.where(game_id: @army.game.id).each do |army|
+        army.alliance = @army.alliance
+        army.save
+      end
+      redirect_to @army.game, notice: @army.name + " is no apart of the " + @army.alliance.name + " alliance"
+      return
+    end
 
     if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
       redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
@@ -61,7 +77,7 @@ class ArmiesController < ApplicationController
     @army.turn_count = 0
     @army.save
     @army.game.armies.each do |army|
-      army.turn_count += 1
+      army.turn_count += 1 if army.turn_count
       army.save
     end
 
@@ -108,7 +124,8 @@ class ArmiesController < ApplicationController
         :x_cord,
         :y_cord,
         :game_id,
-        :user_id
+        :user_id,
+        :alliance_id
       )
     end
 end

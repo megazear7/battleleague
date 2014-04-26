@@ -1,17 +1,27 @@
 %h1 Listing alliances
 
-%table
+%table.table.table-hover.table-responsive
   %tr
-    %th
-    %th
-    %th
+    %th Name
+    %th Game
+    %th Armies
+    %th Delete
+    %th Edit
 
   - @alliances.each do |alliance|
     %tr
-      %td= link_to 'Show', alliance
+      %td= link_to alliance.name, alliance
+      %td= link_to alliance.game.name, alliance.game
+      %td
+        - any = false
+        - alliance.armies.each do |army|
+          - any = true
+          = army.name
+        - if not any
+          This alliance has no armies yet
+      %td= link_to 'Delete', alliance, :method => :delete, :data => { :confirm => 'Are you sure?' }
       %td= link_to 'Edit', edit_alliance_path(alliance)
-      %td= link_to 'Destroy', alliance, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Alliance', new_alliance_path
+= link_to 'New Alliance', new_alliance_path, class: "btn btn-primary"

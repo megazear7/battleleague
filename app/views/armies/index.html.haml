@@ -6,6 +6,7 @@
     %th Army Type
     %th Point Cost
     %th Game
+    %th Delete
 
   - @armies.each do |army|
     %tr
@@ -13,6 +14,7 @@
       %td= army.army_type
       %td= army.point_cost
       %td= link_to army.game.name, army.game
+      %td= link_to "Delete", army, method: :delete
 
 %br
 

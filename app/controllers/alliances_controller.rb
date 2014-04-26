@@ -28,7 +28,7 @@ class AlliancesController < ApplicationController
 
     respond_to do |format|
       if @alliance.save
-        format.html { redirect_to @alliance, notice: 'Alliance was successfully created.' }
+        format.html { redirect_to @alliance.game, notice: 'Alliance was successfully created.' }
         format.json { render action: 'show', status: :created, location: @alliance }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class AlliancesController < ApplicationController
   def update
     respond_to do |format|
       if @alliance.update(alliance_params)
-        format.html { redirect_to @alliance, notice: 'Alliance was successfully updated.' }
+        format.html { redirect_to @alliance.game, notice: 'Alliance was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +69,9 @@ class AlliancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def alliance_params
-      params[:alliance]
+      params.require(:alliance).permit(
+        :name,
+        :game_id
+      )
     end
 end

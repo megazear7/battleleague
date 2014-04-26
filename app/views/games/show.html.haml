@@ -33,7 +33,7 @@
         %tr
           - if army.user == current_user
             %td= link_to army.name, army
-            - if army == @game.current_army
+            - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
               %td= link_to "Move", edit_army_path(army)
             - elsif not (army.x_cord and army.y_cord)
               %td= link_to "Place Army", edit_army_path(army)
@@ -42,7 +42,7 @@
             %td  You
             %td= army.army_type
             %td= army.point_cost
-            - if army == @game.current_army
+            - if army == @game.current_army and not army.turn_count == 0
               %td.my-next-turn 
                 = army.turn_count
                 &nbsp;(Next Move)
@@ -51,9 +51,11 @@
             - else
               %td= army.turn_count
             - if army.alliance
-              %td= army.allliance.name
+              %td= army.alliance.name
             - else
-              %td No Alliance
+              %td
+                Not Allied -
+                = link_to "Ally", army_form_alliance_path(army)
           - else
             %td= army.name
             %td
