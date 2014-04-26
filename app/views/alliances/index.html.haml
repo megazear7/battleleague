@@ -1,0 +1,17 @@
+%h1 Listing alliances
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @alliances.each do |alliance|
+    %tr
+      %td= link_to 'Show', alliance
+      %td= link_to 'Edit', edit_alliance_path(alliance)
+      %td= link_to 'Destroy', alliance, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Alliance', new_alliance_path

@@ -1,6 +1,7 @@
 class Army < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
+  belongs_to :alliance
 
   validate :cordinates_with_limits
 

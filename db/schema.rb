@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426131600) do
+ActiveRecord::Schema.define(version: 20140426145316) do
+
+  create_table "alliances", force: true do |t|
+    t.string   "name"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "armies", force: true do |t|
     t.string   "name"
@@ -26,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140426131600) do
     t.integer  "x_cord"
     t.integer  "y_cord"
     t.integer  "turn_count"
+    t.integer  "alliance_id"
   end
 
   create_table "game_masters", force: true do |t|

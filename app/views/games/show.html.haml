@@ -28,7 +28,8 @@
         %th Army Type
         %th Point Cost
         %th Turn Count
-      - @game.armies.each do |army|
+        %th Alliance
+      - @game.armies.order('turn_count DESC').each do |army|
         %tr
           - if army.user == current_user
             %td= link_to army.name, army
@@ -49,6 +50,10 @@
               %td= link_to "Needs Placed", edit_army_path(army)
             - else
               %td= army.turn_count
+            - if army.alliance
+              %td= army.allliance.name
+            - else
+              %td No Alliance
           - else
             %td= army.name
             %td
@@ -63,6 +68,10 @@
               %td Not Placed
             - else
               %td= army.turn_count
+            - if army.alliance
+              %td= army.allliance.name
+            - else
+              %td No Alliance
     %p.left-margin * Remember that you might not be close enough to see some enemy armies!
   .col-md-6
     = render "maps/map", map: @game.map
