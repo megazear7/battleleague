@@ -43,6 +43,10 @@ class ArmiesController < ApplicationController
   # PATCH/PUT /armies/1
   # PATCH/PUT /armies/1.json
   def update
+    if not @army.move_check params[:army][:x_cord], params[:army][:y_cord]
+      redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
+      return
+    end
     respond_to do |format|
       if @army.update(army_params)
         if @army.game

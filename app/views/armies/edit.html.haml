@@ -17,4 +17,4 @@
 %br
 .btn-group
   = link_to 'Show', @army, class: "btn btn-default"
-  = link_to 'Back', armies_path, class: "btn btn-default"
+  = link_to 'Back', game_path(@army.game), class: "btn btn-default"

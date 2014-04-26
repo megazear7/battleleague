@@ -4,12 +4,13 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    redirect_to new_user_session_path if not current_user
-    @games = current_user ? current_user.games : []
-    if current_user
-      current_user.games_as_master.each do |game|
-        @games << game if not @games.include? game
-      end
+    if not current_user
+      redirect_to new_user_session_path 
+      return
+    end
+    @games = current_user.games
+    current_user.games_as_master.each do |game|
+      @games << game if not @games.include? game
     end
   end
 
