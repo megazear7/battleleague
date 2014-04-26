@@ -3,17 +3,21 @@
   .col-md-6
     %h2= @game.name
     %p
-      Description:
+      %b Description:
+      %br
       =  @game.description
+      %br
+      %br
     %p
-      Objective:
+      %b Objective:
+      %br
       =  @game.objective
+      %br
+      %br
     %p
-      Other Details
+      %b Other Details:
+      %br
       =  @game.details
-    %p
-      The map used for this game is
-      = link_to @game.map.name, @game.map
 
     %hr
     %table.table.table-hover.table-responsive

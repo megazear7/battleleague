@@ -3,6 +3,10 @@ class GamesController < ApplicationController
 
   def set_turns
     @game = Game.find(params[:game_id])
+    if current_user != @game.game_master
+      redirect_to @game, notice: "Only the game master can do that!"
+      return
+    end
     @game.armies.each_with_index do |army, i|
       army.turn_count = i + 1
       army.save
