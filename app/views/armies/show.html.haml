@@ -5,6 +5,8 @@
     This army is fighting in 
     = link_to @army.game.name, @army.game
 
-= link_to 'Edit', edit_army_path(@army), class: "btn btn-link"
-\|
-= link_to 'Back', armies_path, class: "btn btn-link"
+.btn-group
+  = link_to 'Edit', edit_army_path(@army), class: "btn btn-link", class: "btn btn-default"
+  = link_to 'Back', armies_path, class: "btn btn-link", class: "btn btn-default"
+%br
+%br

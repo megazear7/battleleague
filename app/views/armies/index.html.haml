@@ -9,11 +9,11 @@
 
   - @armies.each do |army|
     %tr
-      %td= link_to army.name, army, class: "btn btn-link"
+      %td= link_to army.name, army
       %td= army.army_type
       %td= army.point_cost
-      %td= link_to army.game.name, army.game, class: "btn btn-link"
+      %td= link_to army.game.name, army.game
 
 %br
 
-= link_to 'New Army', new_army_path, class: "btn btn-link"
+= link_to 'New Army', new_army_path, class: "btn btn-default"

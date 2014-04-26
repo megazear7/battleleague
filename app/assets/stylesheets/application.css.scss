@@ -34,4 +34,19 @@
   margin-right: auto;
 }
 
+.my-army {
+  font-weight: bold;
+  color: blue;
+}
+
+.enemy-army {
+  font-weight: bold;
+  color: red;
+}
+
+.move {
+  font-weight: bold;
+  text-decoration:underline;
+}
+
 @import "bootstrap";

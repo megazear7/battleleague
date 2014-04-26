@@ -19,6 +19,7 @@ class ArmiesController < ApplicationController
 
   # GET /armies/1/edit
   def edit
+    redirect_to @army.game, notice: 'That is not your army' if not current_user.armies.include? @army
   end
 
   # POST /armies
@@ -44,8 +45,13 @@ class ArmiesController < ApplicationController
   def update
     respond_to do |format|
       if @army.update(army_params)
-        format.html { redirect_to @army, notice: 'Army was successfully updated.' }
-        format.json { head :no_content }
+        if @army.game
+          format.html { redirect_to @army.game, notice: 'Army was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @army, notice: 'Army was successfully updated.' }
+          format.json { head :no_content }
+        end
       else
         format.html { render action: 'edit' }
         format.json { render json: @army.errors, status: :unprocessable_entity }

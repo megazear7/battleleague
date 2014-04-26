@@ -1,24 +1,46 @@
 .row
 
   .col-md-6
-    .text-center
-      %h2= @game.name
-      %p=  @game.description
-      %p=  @game.objective
-      %p=  @game.details
-      %p
-        The map used for this game is
-        = link_to @game.map.name, @game.map
+    %h2= @game.name
+    %p
+      Description:
+      =  @game.description
+    %p
+      Objective:
+      =  @game.objective
+    %p
+      Other Details
+      =  @game.details
+    %p
+      The map used for this game is
+      = link_to @game.map.name, @game.map
 
     %hr
-    %p
-      Armies:
+    %table.table.table-hover.table-responsive
+      %tr
+        %th Name
+        %th
+        %th Player
+        %th Army Type
+        %th Point Cost
       - @game.armies.each do |army|
-        %p= army.name
-
+        %tr
+          - if army.user == current_user
+            %td= link_to army.name, army
+            %td= link_to "Move", edit_army_path(army)
+            %td  You
+            %td= army.army_type
+            %td= army.point_cost
+          - else
+            %td= army.name
+            %td= army.user.name
+            %td= army.army_type
+            %td= army.point_cost
   .col-md-6
     = render "maps/map", map: @game.map
 
-= link_to 'Edit', edit_game_path(@game)
-\|
-= link_to 'Back', games_path
+.btn-group
+  = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
+  = link_to 'Back', games_path, class: "btn btn-default"
+%br
+%br

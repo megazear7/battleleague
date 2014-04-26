@@ -65,7 +65,7 @@
       %nav.navbar.navbar-default{role: "navigation"}
         .container-fluid
           .navbar-header
-            %a.navbar-brand{href: "#"} Battle League
+            = link_to "Battle League", new_user_session_path, class: "navbar-brand"
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             %ul.nav.navbar-nav.navbar-right
               %li

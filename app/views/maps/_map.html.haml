@@ -8,5 +8,8 @@
           - armies = map.game.armies.where(x_cord: x+1, y_cord: y+1)
           - armies.each do |army|
             - if army.user == current_user or army.close_to(current_user)
-              = link_to army.name, army
-              = "(" + army.user.name + ")"
+              - if army.user == current_user
+                %span.my-army= army.name
+                = link_to "(Move)", edit_army_path(army), class: "move"
+              - else
+                %span.enemy-army= army.name + "(" + army.user.name + ")"

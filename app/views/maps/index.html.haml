@@ -10,11 +10,11 @@
   - @maps.each do |map|
     - if not map.game
       %tr
-        %td= link_to map.name, map, class: "btn btn-link"
+        %td= link_to map.name, map
         %td= map.width
         %td= map.height
-        %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
+        %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Map', new_map_path, class: "btn btn-link"
+= link_to 'New Map', new_map_path, class: "btn btn-default"

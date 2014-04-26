@@ -9,11 +9,11 @@
 
   - @games.each do |game|
     %tr
-      %td= link_to game.name, game, class: "btn btn-link"
+      %td= link_to game.name, game
       %td= game.rule_set
       %td= game.map.name
-      %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-link"
+      %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Game', new_game_path, class: "btn btn-link"
+= link_to 'New Game', new_game_path, class: "btn btn-default"
