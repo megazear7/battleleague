@@ -65,6 +65,7 @@
               %td= army.turn_count
   .col-md-6
     = render "maps/map", map: @game.map
+    %p.left-margin Remember that you might not be close enough to see some enemy armies!
 
 .btn-group
   = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
