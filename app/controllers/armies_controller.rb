@@ -22,6 +22,10 @@ class ArmiesController < ApplicationController
     redirect_to @army.game, notice: 'That is not your army' if not current_user.armies.include? @army
   end
 
+  def full_edit
+    @army = Army.find(params[:army_id])
+  end
+
   # POST /armies
   # POST /armies.json
   def create
@@ -54,6 +58,16 @@ class ArmiesController < ApplicationController
   # PATCH/PUT /armies/1
   # PATCH/PUT /armies/1.json
   def update
+
+    if params[:alliance_id] == "0"
+      @army.user.armies.where(game_id: @army.game.id).each do |army|
+        army.alliance = nil
+        army.save
+      end
+      redirect_to @army.game, notice: @army.name + " is now apart of the " + @army.alliance.name + " alliance"
+      return
+    end
+
     alliance_id = params[:army][:alliance_id]
     if alliance_id 
       @army.alliance = Alliance.find(alliance_id)
@@ -62,16 +76,18 @@ class ArmiesController < ApplicationController
         army.alliance = @army.alliance
         army.save
       end
-      redirect_to @army.game, notice: @army.name + " is no apart of the " + @army.alliance.name + " alliance"
+      redirect_to @army.game, notice: @army.name + " is now apart of the " + @army.alliance.name + " alliance"
       return
     end
 
-    if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
-      redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
-      return
-    elsif (@army != @army.game.current_army) and (@army.x_cord and @army.y_cord)
-      redirect_to edit_army_path(@army), notice: "It is not this armies turn, it will be in " + (@army.game.current_army.turn_count - @army.turn_count).to_s + " turns"
-      return
+    if params[:x_cord] and params[:y_cord]
+      if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
+        redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
+        return
+      elsif (@army != @army.game.current_army) and (@army.x_cord and @army.y_cord)
+        redirect_to edit_army_path(@army), notice: "It is not this armies turn, it will be in " + (@army.game.current_army.turn_count - @army.turn_count).to_s + " turns"
+        return
+      end
     end
 
     @army.turn_count = 0

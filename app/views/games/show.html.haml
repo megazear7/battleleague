@@ -51,7 +51,9 @@
             - else
               %td= army.turn_count
             - if army.alliance
-              %td= army.alliance.name
+              %td
+                = army.alliance.name
+                = link_to "Leave", army_path(army, alliance_id: 0), method: :put
             - else
               %td
                 Not Allied -

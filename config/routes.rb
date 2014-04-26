@@ -3,6 +3,7 @@ Battleleague::Application.routes.draw do
 
   resources :armies do
     get 'form_alliance'
+    get 'full_edit'
   end
 
   resources :spaces
