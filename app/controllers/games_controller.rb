@@ -21,12 +21,13 @@ class GamesController < ApplicationController
       redirect_to new_user_session_path 
       return
     end
-    @games = current_user.games
+    #@games = current_user.games
     # HACK WARNING!!!
-    @games.each do |game|
-      @games = @games - [game] if @games.include? game
-      @games << game
-    end
+    #@games.each do |game|
+    #  @games = @games - [game] if @games.include? game
+    #  @games << game
+    #end
+    @games = Game.all
   end
 
   # GET /games/1
