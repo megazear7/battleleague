@@ -1,5 +1,11 @@
 .row
-
+  .btn-group
+    - if current_user.games.include? @game
+      = link_to "New Army", new_army_path, class: "btn btn-default"
+    - else
+      = link_to "Join Game", new_army_path, class: "btn btn-default", notice: "Create an army to join the game"
+    = link_to "New Alliance", new_alliance_path, class: "btn btn-default"
+.row
   .col-md-6
     %h2= @game.name
     %p
