@@ -40,7 +40,11 @@
           - if army.user == current_user
             %td= link_to army.name, army
             - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
-              %td Can Move
+              %td 
+                = simple_form_for army do |f|
+                  = f.hidden_field :x_cord, value: army.x_cord
+                  = f.hidden_field :y_cord, value: army.y_cord
+                  = f.submit "Skip Move", class: "skip"
             - elsif not (army.x_cord and army.y_cord)
               %td= link_to "Place Army", edit_army_path(army)
             - else

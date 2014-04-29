@@ -140,4 +140,16 @@
 	border-right:20px solid blue; 
 }
 
+.skip:hover {
+  background-color: red;
+  color: white;
+}
+
+.skip {
+  background-color: rgba(0,0,0,0);
+  color: red;
+  font-weight: bold;
+  border-width: 0px;
+}
+
 @import "bootstrap";
