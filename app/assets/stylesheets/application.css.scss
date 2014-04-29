@@ -83,7 +83,8 @@
 .up-move {
   position: absolute;
   bottom:0px;
-  left: 50%;
+  left: 30%;
+  margin: auto;
 	width: 0; 
 	height: 0; 
 	border-left: 20px solid transparent;
@@ -99,7 +100,8 @@
 .down-move {
   position: absolute;
   top: 0px;
-  left: 50%;
+  left: 30%;
+  margin: auto;
 	width: 0; 
 	height: 0; 
 	border-left: 20px solid transparent;
@@ -115,7 +117,7 @@
 .right-move {
   position: absolute;
   left: 0px;
-  top: 50%;
+  margin: auto;
 	width: 0; 
 	height: 0; 
 	border-top: 20px solid transparent;
@@ -131,7 +133,7 @@
 .left-move {
   position: absolute;
   right: 0px;
-  top: 50%;
+  margin: auto;
 	width: 0; 
 	height: 0; 
 	border-top: 20px solid transparent;
