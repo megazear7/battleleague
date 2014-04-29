@@ -1,11 +1,16 @@
-.map-container
+- dimension = 520 / map.width
+- width  = dimension * map.width
+- height = dimension * map.height
+.map-container{ style: "width: #{width}px; height: #{height}px" }
   - map.height.times do |y|
     - map.width.times do |x|
       - space = map.spaces.where(x_cord: x+1, y_cord: y+1).first
       - if not space
         - space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "", victory_points: 0, map: map)
         - temp_space = true
-      %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "width: #{500/space.map.width}px; height: #{500/space.map.height}px; position: absolute; bottom: #{(510/space.map.height) * (space.y_cord-1)}px; left: #{(510/space.map.width) * (space.x_cord-1)}px;"} 
+      - w = (100/map.width) * 0.95
+      - g = (100/map.width) * 0.05
+      %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "width: #{w}%; height: #{w}%; position: absolute; bottom: #{(w + g) * (space.y_cord-1)}%; left: #{(w + g) * (space.x_cord-1)}%;"} 
         - if space.terrain != ""
           = space.terrain
         - if space.victory_points and space.victory_points > 0
