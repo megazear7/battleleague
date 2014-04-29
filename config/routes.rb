@@ -5,6 +5,7 @@ Battleleague::Application.routes.draw do
     get 'form_alliance'
     get 'full_edit'
   end
+  put 'move/:id' => 'armies#move'
 
   resources :spaces
 

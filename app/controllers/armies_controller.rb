@@ -1,5 +1,5 @@
 class ArmiesController < ApplicationController
-  before_action :set_army, only: [:show, :edit, :update, :destroy]
+  before_action :set_army, only: [:show, :edit, :move, :update, :destroy]
 
   # GET /armies
   # GET /armies.json
@@ -53,6 +53,40 @@ class ArmiesController < ApplicationController
 
   def form_alliance
     @army = Army.find(params[:army_id])
+  end
+
+  def move
+    if params[:x_cord] and params[:y_cord]
+      if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
+        redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
+        return
+      elsif (@army != @army.game.current_army) and (@army.x_cord and @army.y_cord)
+        redirect_to edit_army_path(@army), notice: "It is not this armies turn, it will be in " + (@army.game.current_army.turn_count - @army.turn_count).to_s + " turns"
+        return
+      end
+    end
+
+    @army.turn_count = 0
+    @army.save
+    @army.game.armies.each do |army|
+      army.turn_count += 1 if army.turn_count
+      army.save
+    end
+
+    respond_to do |format|
+      if @army.update(army_params)
+        if @army.game
+          format.html { redirect_to @army.game, notice: 'Army was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @army, notice: 'Army was successfully updated.' }
+          format.json { head :no_content }
+        end
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @army.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /armies/1

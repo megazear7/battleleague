@@ -92,3 +92,36 @@
   = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
 %br
 %br
+
+.hidden
+  = number_field_tag :current_army_id, @game.current_army.id
+
+.hidden
+  .left-move
+    = form_tag :action => 'move', :controller => 'armies', :method => :put do |f|
+      = hidden_field_tag :id
+      = hidden_field_tag "army[x_cord]"
+      = hidden_field_tag "army[y_cord]"
+      = hidden_field_tag "_method", "put"
+      = submit_tag "", :style => "display:none"
+  .right-move
+    = form_tag :action => 'move', :controller => 'armies', :method => :put do |f|
+      = hidden_field_tag :id
+      = hidden_field_tag "army[x_cord]"
+      = hidden_field_tag "army[y_cord]"
+      = hidden_field_tag "_method", "put"
+      = submit_tag "", :style => "display:none"
+  .up-move
+    = form_tag :action => 'move', :controller => 'armies', :method => :put do |f|
+      = hidden_field_tag :id
+      = hidden_field_tag "army[x_cord]"
+      = hidden_field_tag "army[y_cord]"
+      = hidden_field_tag "_method", "put"
+      = submit_tag "", :style => "display:none"
+  .down-move
+    = form_tag :action => 'move', :controller => 'armies', :method => :put do |f|
+      = hidden_field_tag :id
+      = hidden_field_tag "army[x_cord]"
+      = hidden_field_tag "army[y_cord]"
+      = hidden_field_tag "_method", "put"
+      = submit_tag "", :style => "display:none"
