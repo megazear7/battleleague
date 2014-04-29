@@ -4,17 +4,28 @@
 
 $ ->
   $(".move").on 'click', (event) ->
-    id = $(this).parent().attr("id")
-    x = id.substring(0, id.indexOf('-'))
-    y = id.substring(id.indexOf('-')+1, id.length)
-    $( ".hidden" ).append( $(".left-move") )
-    $( ".hidden").append( $(".right-move") )
-    $( ".hidden" ).append( $(".up-move") )
-    $( ".hidden" ).append( $(".down-move") )
-    $( "#" + (parseInt(x)-1) + "-" + y ).append( $(".left-move") )
-    $( "#" + (parseInt(x)+1) + "-" + y ).append( $(".right-move") )
-    $( "#" + x + "-" + (parseInt(y)+1) ).append( $(".up-move") )
-    $( "#" + x + "-" + (parseInt(y)-1) ).append( $(".down-move") )
+    
+    if $(this).text() == "Cancel"
+      $(this).text("Move").css("background-color", "blue")
+      $( ".hidden" ).append( $(".left-move") )
+      $( ".hidden").append( $(".right-move") )
+      $( ".hidden" ).append( $(".up-move") )
+      $( ".hidden" ).append( $(".down-move") )
+    else
+
+      $(this).text("Cancel").css("background-color", "red")
+
+      id = $(this).parent().attr("id")
+      x = id.substring(0, id.indexOf('-'))
+      y = id.substring(id.indexOf('-')+1, id.length)
+      $( ".hidden" ).append( $(".left-move") )
+      $( ".hidden").append( $(".right-move") )
+      $( ".hidden" ).append( $(".up-move") )
+      $( ".hidden" ).append( $(".down-move") )
+      $( "#" + (parseInt(x)-1) + "-" + y ).append( $(".left-move") )
+      $( "#" + (parseInt(x)+1) + "-" + y ).append( $(".right-move") )
+      $( "#" + x + "-" + (parseInt(y)+1) ).append( $(".up-move") )
+      $( "#" + x + "-" + (parseInt(y)-1) ).append( $(".down-move") )
 
   $(".left-move").on 'click', (event) ->
     id = $(this).parent().attr("id")

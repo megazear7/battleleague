@@ -24,7 +24,6 @@
               - if army.user == current_user and army == army.game.current_army
                 %span.my-army= army.name
                 %span.move Move
-                -#= link_to "(Move)", edit_army_path(army), class: "move"
               - elsif army.user == current_user
                 %span.my-army= army.name
               - elsif army.allied_to(current_user)

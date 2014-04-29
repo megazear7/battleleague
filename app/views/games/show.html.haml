@@ -40,7 +40,7 @@
           - if army.user == current_user
             %td= link_to army.name, army
             - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
-              %td= link_to "Move", edit_army_path(army)
+              %td Can Move
             - elsif not (army.x_cord and army.y_cord)
               %td= link_to "Place Army", edit_army_path(army)
             - else
