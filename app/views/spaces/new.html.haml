@@ -2,4 +2,5 @@
 
 = render 'form'
 
-= link_to 'Back', spaces_path, class: "btn btn-default"
+.btn-group
+  = link_to 'Back', edit_map_path(params[:map_id]), class: "btn btn-default"
