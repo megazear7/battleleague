@@ -1,6 +1,3 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_space_path(@space)
-\|
-= link_to 'Back', spaces_path
+.btn-group
+  = link_to 'Edit', edit_space_path(@space), class: "btn btn-default"
+  = link_to 'Back', spaces_path, class: "btn btn-default"

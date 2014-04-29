@@ -78,7 +78,7 @@
               %td No Alliance
     %p.left-margin * Remember that you might not be close enough to see some enemy armies!
   .col-md-6
-    = render "maps/map", map: @game.map
+    = render partial: "maps/map", locals: { map: @game.map, is_edit: false }
 
 .btn-group
   = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"

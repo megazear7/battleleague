@@ -50,10 +50,11 @@ class GamesController < ApplicationController
 
     @game.save
 
-    map = Map.find(params[:game][:map_id]) 
-    @game.map = map.dup
-    @game.map.save
-    @game.map.spaces.create({x_cord: map.width, y_cord: map.height, terrain: "Terrain Unknown"})
+    old_map = Map.find(params[:game][:map_id]) 
+    @game.map = old_map.dup
+    old_map.spaces.each do |space|
+      @game.map.spaces << space
+    end
     @game.map.save
 
     respond_to do |format|

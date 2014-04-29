@@ -1,4 +1,4 @@
-= form_for @space do |f|
+= simple_form_for @space do |f|
   - if @space.errors.any?
     #error_explanation
       %h2= "#{pluralize(@space.errors.count, "error")} prohibited this space from being saved:"
@@ -6,5 +6,18 @@
         - @space.errors.full_messages.each do |msg|
           %li= msg
 
+  .row
+    .col-md-2
+      = f.input :terrain, input_html: { class: "string form-control" }
+  .row
+    .col-md-2
+      = f.input :victory_points, input_html: { class: "string form-control" }
+
+  = f.hidden_field :map_id, value: params[:map_id]
+  = f.hidden_field :x_cord, value: params[:x_cord]
+  = f.hidden_field :y_cord, value: params[:y_cord]
+
+  %br
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "btn btn-primary"
+%br

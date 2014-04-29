@@ -28,7 +28,7 @@ class SpacesController < ApplicationController
 
     respond_to do |format|
       if @space.save
-        format.html { redirect_to @space, notice: 'Space was successfully created.' }
+        format.html { redirect_to edit_map_path(@space.map), notice: 'Space was successfully created.' }
         format.json { render action: 'show', status: :created, location: @space }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SpacesController < ApplicationController
   def update
     respond_to do |format|
       if @space.update(space_params)
-        format.html { redirect_to @space, notice: 'Space was successfully updated.' }
+        format.html { redirect_to edit_map_path(@space.map), notice: 'Space was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +69,12 @@ class SpacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
-      params[:space]
+      params.require(:space).permit(
+        :terrain,
+        :victory_points,
+        :x_cord,
+        :y_cord,
+        :map_id
+      )
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426145316) do
+ActiveRecord::Schema.define(version: 20140429004306) do
 
   create_table "alliances", force: true do |t|
     t.string   "name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20140426145316) do
     t.integer  "map_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "victory_points"
   end
 
   create_table "users", force: true do |t|

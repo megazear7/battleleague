@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @space
-\|
-= link_to 'Back', spaces_path
+.btn-group
+  = link_to 'Show', @space, class: "btn btn-default"
+  = link_to 'Back', spaces_path, class: "btn btn-default"

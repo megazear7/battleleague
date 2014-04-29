@@ -10,6 +10,7 @@ class MapsController < ApplicationController
   # GET /maps/1
   # GET /maps/1.json
   def show
+    @is_edit = false
   end
 
   # GET /maps/new
@@ -19,6 +20,7 @@ class MapsController < ApplicationController
 
   # GET /maps/1/edit
   def edit
+    @is_edit = true
   end
 
   # POST /maps
@@ -34,7 +36,7 @@ class MapsController < ApplicationController
     end
 
     @map.save
-    @map.spaces.create({x_cord: width, y_cord: height, terrain: "Terrain Unknown"})
+    @map.spaces.create({x_cord: width, y_cord: height, terrain: "", victory_points: 0})
 
     respond_to do |format|
       if @map.save

@@ -7,9 +7,10 @@
       The game that this map is apart of is
       = link_to @map.game.name, @map.game
 
-= render "map", map: @map
-   
+= render partial: "map", locals: { map: @map, is_edit: @is_edit }
+
 .btn-group
-  = link_to 'Back', maps_path, class: "btn btn-link", class: "btn btn-default"
+  = link_to 'Back', maps_path, class: "btn btn-default"
+  = link_to 'Edit', edit_map_path(@map), class: "btn btn-default"
 %br
 %br

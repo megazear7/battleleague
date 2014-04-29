@@ -1,7 +1,10 @@
 %h1 Editing map
 
-= render 'form'
+= render partial: "map", locals: { map: @map, is_edit: @is_edit }
 
-= link_to 'Show', @map, class: "btn btn-link"
-\|
-= link_to 'Back', maps_path, class: "btn btn-link"
+%br
+.btn-group
+  = link_to 'Show', @map, class: "btn btn-default"
+  = link_to 'Back', maps_path, class: "btn btn-default"
+%br
+%br

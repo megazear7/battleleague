@@ -1,9 +1,17 @@
 .map-container
   - map.height.times do |y|
     - map.width.times do |x|
-      - space = map.spaces.where(x_cord: x, y_cord: y).first
-      - space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "Terrain Unknown", map: map) if not space
+      - space = map.spaces.where(x_cord: x+1, y_cord: y+1).first
+      - if not space
+        - space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "", victory_points: 0, map: map)
+        - temp_space = true
       %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "width: #{500/space.map.width}px; height: #{500/space.map.height}px; position: absolute; bottom: #{(510/space.map.height) * (space.y_cord-1)}px; left: #{(510/space.map.width) * (space.x_cord-1)}px;"} 
+        - if space.terrain != ""
+          = space.terrain
+        - if space.victory_points and space.victory_points > 0
+          %span.glyphicon.glyphicon-star-empty.pull-right
+          %span.pull-right= space.victory_points
+        %br
         - if map.game and current_user
           - armies = map.game.armies.where(x_cord: x+1, y_cord: y+1)
           - armies.each do |army|
@@ -17,3 +25,16 @@
                 %span.allied-army= army.name + " (" + army.user.name + ")"
               - else
                 %span.enemy-army= army.name + " (" + army.user.name + ")"
+        - if is_edit
+          - if temp_space
+            = form_tag new_space_path, :method => 'get' do
+              = hidden_field_tag :x_cord, x+1
+              = hidden_field_tag :y_cord, y+1
+              = hidden_field_tag :map_id, map.id
+              %span= submit_tag "Add", :name => nil, class: "space-edit"
+          - else
+            = form_tag edit_space_path(space), :method => 'get' do
+              = hidden_field_tag :x_cord, x+1
+              = hidden_field_tag :y_cord, y+1
+              = hidden_field_tag :map_id, map.id
+              %span= submit_tag "Edit", :name => nil, class: "space-edit"
