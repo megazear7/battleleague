@@ -90,21 +90,30 @@
   .col-md-6
     = render partial: "maps/map", locals: { map: @game.map, is_edit: false }
 .container.comment-section
-  - @game.comments.each do |c|
-    - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
-      .row
-        %span.comment
-          - if c.army.user == current_user
-            You said
-          - else
-            = c.army.user.name + " says"
-          - if c.comment_type == "public"
-            (public)
-          - elsif c.comment_type == "team"
-            = "(Message to " + c.army.alliance.name + ")"
-          - elsif c.comment_type == "whisper"
-            = "(whisper from " + c.army.user.name + ")"
-          = c.content
+  %table.table.table-hover.table-responsive.table-condensed.table-striped
+    - @game.comments.each do |c|
+      - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
+        %tr
+          %span.comment
+            %td.col-md-3
+              - if c.army.user == current_user
+                You said
+              - else
+                = c.army.user.name + " says"
+              - if c.comment_type == "public"
+                (public)
+              - elsif c.comment_type == "team"
+                = "(Message to " + c.army.alliance.name + ")"
+              - elsif c.comment_type == "whisper"
+                - if c.army.user == current_user
+                  - if c.user == current_user
+                    = "(you whispered to yourself)"
+                  - else
+                    = "(you whispered to " + c.user.name + ")"
+                - else
+                  = "(whisper from " + c.army.user.name + ")"
+            %td
+              = c.content
 %br
 %br
 - if @game.armies.where(user: current_user).first

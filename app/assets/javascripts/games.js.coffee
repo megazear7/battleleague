@@ -73,7 +73,7 @@ $ ->
 
   # move the comment section to the bottom (the latest comments)
   elem = $('.comment-section')
-  elem.scrollTop(elem.height())
+  elem.scrollTop(elem.height() * 2)
 
   # hide the user id input at first
   $("#whisper").hide()
