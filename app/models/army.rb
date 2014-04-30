@@ -2,9 +2,10 @@ class Army < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   belongs_to :alliance
-  validates :movement_rate, presence: true
-  validates :game_id, presence: true
-  validates :name, presence: true
+  has_many   :comments, :dependent => :destroy
+  validates  :movement_rate, presence: true
+  validates  :game_id, presence: true
+  validates  :name, presence: true
   
 
   validate :cordinates_with_limits

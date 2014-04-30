@@ -1,4 +1,6 @@
 Battleleague::Application.routes.draw do
+  resources :comments
+
   resources :alliances
 
   resources :armies do

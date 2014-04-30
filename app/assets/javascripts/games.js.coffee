@@ -69,3 +69,13 @@ $ ->
     $( this ).find("#army_y_cord").val(y)
     $( this ).find("form").attr("action", "/move/" + $("#current_army_id").val())
     $( this ).find("[method='post']").submit()
+
+
+  # move the comment section to the bottom (the latest comments)
+  elem = $('.comment-section')
+  elem.scrollTop(elem.height())
+
+
+
+
+
