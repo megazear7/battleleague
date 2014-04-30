@@ -90,27 +90,40 @@
   .col-md-6
     = render partial: "maps/map", locals: { map: @game.map, is_edit: false }
 .container.comment-section
-  - @game.comments.reverse.each do |c|
-    - if c.comment_type == "public" or ( c.comment_type == team and c.army.alliance == @games.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
+  - @game.comments.each do |c|
+    - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
       .row
-        - if c.army.user == current_user
-          %span.comment= "You said: " + c.content
-        - else
-          %span.comment= c.army.user.name + " says: " + c.content
+        %span.comment
+          - if c.army.user == current_user
+            You said
+          - else
+            = c.army.user.name + " says"
+          - if c.comment_type == "public"
+            (public)
+          - elsif c.comment_type == "team"
+            = "(Message to " + c.army.alliance.name + ")"
+          - elsif c.comment_type == "whisper"
+            = "(whisper from " + c.army.user.name + ")"
+          = c.content
 %br
 %br
-.row
-  = simple_form_for @comment do |f|
-    .col-md-4
-      = f.input :content, input_html: { class: "string form-control" }
-    .col-md-2
-      = f.input :comment_type, collection: comment_types, selected: "Public", input_html: { class: "dropdown form-control" }
-    .col-md-2
-      = f.association :user, label: "Whisper To", collection: @game.users, input_html: { class: "dropdown form-control" }
-    = f.hidden_field :army_id, value: @game.armies.where(user: current_user).first.id
-    .col-md-2
-      %br
-      = f.submit class: "btn btn-primary"
+- if @game.armies.where(user: current_user).first
+  .row
+    = simple_form_for @comment do |f|
+      .col-md-4
+        = f.input :content, input_html: { class: "string form-control" }
+      .col-md-2
+        = f.input :comment_type, collection: comment_types(@game, current_user), selected: "Public", input_html: { class: "dropdown form-control" }
+      .col-md-2{ id: "whisper" }
+        = f.association :user, label: "Whisper To", collection: @game.users, input_html: { class: "dropdown form-control" }
+      = f.hidden_field :army_id, value: @game.armies.where(user: current_user).first.id
+      .col-md-2
+        %br
+        = f.submit class: "btn btn-primary shift-down"
+- else 
+  You must 
+  = link_to "join", new_army_path
+  the game to comment
 
 %br
 %br

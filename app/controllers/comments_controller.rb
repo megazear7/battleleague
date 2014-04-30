@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment.army.game, notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to @comment.army.game, notice: 'A whisper needs to be given a user to send the whisper to' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

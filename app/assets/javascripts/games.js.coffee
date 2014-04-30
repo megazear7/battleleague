@@ -75,6 +75,15 @@ $ ->
   elem = $('.comment-section')
   elem.scrollTop(elem.height())
 
+  # hide the user id input at first
+  $("#whisper").hide()
+
+  $("#comment_comment_type").on 'change', (event) ->
+    if $(this).val() == "whisper"
+      $("#whisper").show()
+    else
+      $("#whisper").hide()
+
 
 
 
