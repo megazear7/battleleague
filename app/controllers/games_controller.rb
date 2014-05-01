@@ -54,8 +54,9 @@ class GamesController < ApplicationController
 
     old_map = Map.find(params[:game][:map_id]) 
     @game.map = old_map.dup
-    old_map.spaces.each do |space|
-      @game.map.spaces << space
+    old_map.spaces.each do |old_space|
+      new_space = old_space.dup
+      @game.map.spaces << new_space
     end
     @game.map.save
 
