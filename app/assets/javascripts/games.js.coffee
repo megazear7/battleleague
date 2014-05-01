@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  alert("hello")
   $(".move").on 'click', (event) ->
     
     if $(this).text() == "Cancel"
@@ -36,6 +35,8 @@ $ ->
   # move the comment section to the bottom (the latest comments)
   elem = $('.comment-section')
   elem.scrollTop(elem.height() * 2)
+
+  alert("hello")
 
   # hide the user id input at first
   $("#whisper").hide()
