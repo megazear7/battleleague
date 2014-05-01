@@ -1,9 +1,13 @@
 class Space < ActiveRecord::Base
   belongs_to :map
-  has_many :armies
+  belongs_to :army
 
-  def armies
-    self.map.armies.where(x_cord: self.x_cord, y_cord: self.y_cord)
+  def color current_user
+    if self.army and self.army.allied_to(current_user)
+      return "blue"
+    elsif self.army
+      return "red"
+    end
   end
 
 end

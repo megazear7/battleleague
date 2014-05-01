@@ -92,7 +92,7 @@
 .container.comment-section
   %table.table.table-hover.table-responsive.table-condensed.table-striped
     - @game.comments.each do |c|
-      - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
+      - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and @game.armies.where(user: current_user).first and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
         %tr
           %span.comment
             %td.col-md-3

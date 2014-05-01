@@ -28,7 +28,7 @@
 
 .my-army {
   font-weight: bold;
-  color: blue;
+  color: rgb(0, 255, 41);
 }
 
 .allied-army {
@@ -90,7 +90,7 @@
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
 	
-	border-bottom: 20px solid blue;
+	border-bottom: 20px solid rgb(255, 224, 0);
 }
 
 .down-move:hover {
@@ -107,7 +107,7 @@
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
 	
-	border-top: 20px solid blue;
+	border-top: 20px solid rgb(255, 224, 0);
 }
 
 .right-move:hover {
@@ -123,7 +123,7 @@
 	border-top: 20px solid transparent;
 	border-bottom: 20px solid transparent;
 	
-	border-left: 20px solid blue;
+	border-left: 20px solid rgb(255, 224, 0);
 }
 
 .left-move:hover {
@@ -139,7 +139,7 @@
 	border-top: 20px solid transparent;
 	border-bottom: 20px solid transparent; 
 	
-	border-right:20px solid blue; 
+	border-right:20px solid rgb(255, 224, 0); 
 }
 
 .skip:hover {

@@ -74,7 +74,11 @@ class ArmiesController < ApplicationController
     end
 
     respond_to do |format|
+      space = @army.game.map.spaces.where(x_cord: @army.x_cord, y_cord: @army.y_cord).first
+      space = @army.game.map.spaces.create(x_cord: @army.x_cord, y_cord: @army.y_cord, army: @army) if not space
       if @army.update(army_params)
+        space.army = @army
+        space.save
         if @army.game
           format.html { redirect_to @army.game, notice: 'Army was successfully updated.' }
           format.json { head :no_content }
@@ -132,7 +136,11 @@ class ArmiesController < ApplicationController
     end
 
     respond_to do |format|
+      space = @army.game.map.spaces.where(x_cord: @army.x_cord, y_cord: @army.y_cord).first
+      space = @army.game.map.spaces.create(x_cord: @army.x_cord, y_cord: @army.y_cord, army: @army) if not space
       if @army.update(army_params)
+        space.army = @army
+        space.save
         if @army.game
           format.html { redirect_to @army.game, notice: 'Army was successfully updated.' }
           format.json { head :no_content }
