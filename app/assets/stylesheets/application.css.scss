@@ -81,70 +81,20 @@
   border-width: 0px;
 }
 
-.up-move:hover {
-	border-bottom: 20px solid red;
+.move-icon:hover {
+  background-image: image-url('move-hover.png');
 }
 
-.up-move {
-  position: absolute;
-  bottom:0px;
-  left: 30%;
-  margin: auto;
-	width: 0; 
-	height: 0; 
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
-	
-	border-bottom: 20px solid rgb(255, 224, 0);
-}
-
-.down-move:hover {
-	border-top: 20px solid red;
-}
-
-.down-move {
-  position: absolute;
-  top: 0px;
-  left: 30%;
-  margin: auto;
-	width: 0; 
-	height: 0; 
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
-	
-	border-top: 20px solid rgb(255, 224, 0);
-}
-
-.right-move:hover {
-	border-left: 20px solid red;
-}
-
-.right-move {
-  position: absolute;
-  left: 0px;
-  margin: auto;
-	width: 0; 
-	height: 0; 
-	border-top: 20px solid transparent;
-	border-bottom: 20px solid transparent;
-	
-	border-left: 20px solid rgb(255, 224, 0);
-}
-
-.left-move:hover {
-	border-right:20px solid red; 
-}
-
-.left-move {
-  position: absolute;
-  right: 0px;
-  margin: auto;
-	width: 0; 
-	height: 0; 
-	border-top: 20px solid transparent;
-	border-bottom: 20px solid transparent; 
-	
-	border-right:20px solid rgb(255, 224, 0); 
+.move-icon {
+  position:absolute;
+	width: 100%; 
+	height: 100%; 
+  top:0px;
+  left:0px;
+  background-color: rgba(100,100,100,0.5);
+  background-repeat:no-repeat;
+  background-position:center; 
+  cursor: pointer;
 }
 
 .skip:hover {
