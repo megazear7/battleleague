@@ -1,10 +1,13 @@
-%h1 Editing map
-
-= render partial: "map", locals: { map: @map, is_edit: @is_edit }
-
-%br
-.btn-group
-  = link_to 'Show', @map, class: "btn btn-default"
-  = link_to 'Back', maps_path, class: "btn btn-default"
+.container
+  .row
+    .col-md-2
+      .row
+        %h1 Editing map
+      .row
+        .btn-group
+          = link_to 'Show', @map, class: "btn btn-default"
+          = link_to 'Back', maps_path, class: "btn btn-default"
+    .col-md-8
+      = render partial: "map", locals: { map: @map, is_edit: @is_edit }
 %br
 %br
