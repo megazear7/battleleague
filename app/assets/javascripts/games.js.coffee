@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  alert("hello")
   $(".move").on 'click', (event) ->
     
     if $(this).text() == "Cancel"
