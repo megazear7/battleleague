@@ -14,7 +14,11 @@
       = f.input :description, input_html: { class: "string form-control" }
   .row
     .col-md-2
-      = f.association :game, input_html: { class: "dropdown form-control" }
+      - if params[:game_id]
+        = f.input :game, input_html: { readonly: true, value: Game.find(params[:game_id]).name, class: "dropdown form-control" }
+        = f.hidden_field :game_id, value: params[:game_id]
+      - else
+        = f.association :game, input_html: { class: "dropdown form-control" }
     .col-md-2
       = f.input :army_type, input_html: { class: "string form-control" }
     .col-md-2

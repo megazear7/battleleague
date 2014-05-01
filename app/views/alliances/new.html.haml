@@ -1,5 +1,14 @@
-%h1 New alliance
+- if params[:game_id]
+  %h1 
+    New alliance for
+    = Game.find(params[:game_id]).name
+- else
+  %h1 New alliance
 
 = render 'form'
 
-= link_to 'Back', alliances_path
+%br
+- if params[:game_id]
+  = link_to 'Back', game_path(params[:game_id]), class: "btn btn-default"
+- else
+  = link_to 'Back', alliances_path, class: "btn btn-default"
