@@ -10,7 +10,12 @@
  *
  *= require_self
  *= require_tree .
- *= require_tree ../../../vendor/assets/stylesheets/
+ *= stub theme1.min.css
+ *= stub theme2.min.css
+ *= stub theme3.min.css
+ *= stub theme4.min.css
+ *= stub theme5.min.css
+ *= stub theme6.min.css
  */
 
 .space {

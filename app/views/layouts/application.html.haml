@@ -3,6 +3,10 @@
 %head
   %title Battleleague
   = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+  - if current_user and current_user.theme
+    = stylesheet_link_tag    current_user.theme,       media: "all", "data-turbolinks-track" => true
+  - else
+    = stylesheet_link_tag    "theme.min",       media: "all", "data-turbolinks-track" => true
   = javascript_include_tag "application", "data-turbolinks-track" => true
   = csrf_meta_tags
 %head
