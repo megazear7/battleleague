@@ -36,8 +36,6 @@ $ ->
   elem = $('.comment-section')
   elem.scrollTop(elem.height() * 2)
 
-  alert("hello")
-
   # hide the user id input at first
   $("#whisper").hide()
 
