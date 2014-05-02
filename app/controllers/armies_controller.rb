@@ -22,10 +22,6 @@ class ArmiesController < ApplicationController
     redirect_to @army.game, notice: 'That is not your army' if not current_user.armies.include? @army
   end
 
-  def full_edit
-    @army = Army.find(params[:army_id])
-  end
-
   # POST /armies
   # POST /armies.json
   def create
