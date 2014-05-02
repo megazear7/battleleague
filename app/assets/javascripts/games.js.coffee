@@ -44,3 +44,17 @@ $ ->
       $("#whisper").show()
     else
       $("#whisper").hide()
+
+  $(".is_winner").each (event) ->
+    if $(this).val() == "1"
+      value == 0
+    else
+      value == 1
+    $(this).parent().next().val(value)
+
+  $(".is_winner").on 'change', (event) ->
+    if $(this).val() == "1"
+      value == 0
+    else
+      value == 1
+    $(this).parent().next().val(value)

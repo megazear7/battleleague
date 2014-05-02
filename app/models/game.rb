@@ -5,6 +5,34 @@ class Game < ActiveRecord::Base
   belongs_to :game_master, :class_name => 'User', :foreign_key => 'game_master_id'
   has_many :alliances, dependent: :destroy
   has_many :comments, through: :armies
+  accepts_nested_attributes_for :armies
+
+  def battling_armies
+    (1..self.map.width).each do |x|
+      (1..self.map.height).each do |y|
+        space = self.map.spaces.where(x_cord: x+1, y_cord: y+1).first
+        space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "", victory_points: 0, map: map) if not space
+        space.armies.each do |army1|
+          space.armies.each do |army2|
+            if not army1.allied_to(army2.user)
+              return space.armies
+            end
+          end
+        end
+      end
+    end
+    return []
+  end
+
+  def has_unresolved_armies_at x, y
+    return false if not self.has_battle_at x, y
+    space = self.map.spaces.where(x_cord: x, y_cord: y).first
+    space = Space.new(x_cord: x, y_cord: y, terrain: "", victory_points: 0, map: map) if not space
+    space.armies.each do |army|
+      return true if army.is_winner or army.is_loser
+    end
+    return false
+  end
 
   def has_battle_at x, y
     space = self.map.spaces.where(x_cord: x, y_cord: y).first

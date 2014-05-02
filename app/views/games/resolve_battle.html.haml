@@ -1,0 +1,19 @@
+= simple_form_for @game do |f|
+  - if @game.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@game.errors.count, "error")} prohibited this game from being saved:"
+      %ul
+        - @game.errors.full_messages.each do |msg|
+          %li= msg
+
+  %h2 Who Won?
+  = f.fields_for :armies do |army|
+    - if @game.battling_armies.include? army.object
+      = army.input :is_winner, as: :boolean, label: army.object.name, input_html: { class: "is_winner" }
+      = army.hidden_field :is_loser, class: "is_loser"
+      = army.hidden_field :id, value: army.object.id
+  %br
+
+  %br
+  .actions
+    = f.submit 'Save', class: "btn btn-primary"

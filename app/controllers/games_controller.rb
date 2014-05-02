@@ -95,6 +95,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def resolve_battle
+    @game = Game.find(params[:game_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
@@ -109,7 +113,11 @@ class GamesController < ApplicationController
         :description,
         :objective,
         :details,
-        :game_master_id
+        :game_master_id,
+        armies_attributes: [
+          :id,
+          :is_winner
+        ]
       )
     end
 end

@@ -20,13 +20,16 @@
           %br
         - if map.game and current_user
           - armies = map.game.armies.where(x_cord: x+1, y_cord: y+1)
-          - if map.game.has_battle_at(x+1, y+1)
-            BATTLE!!!
+          - if map.game.has_battle_at(x+1, y+1) and not map.game.has_unresolved_armies_at(x+1, y+1)
+            = link_to "Resolve Battle", game_resolve_battle_path(map.game)
           - armies.each do |army|
             - if army.user == current_user or army.close_to(current_user) or army.allied_to(current_user)
               - if army.user == current_user and army == army.game.current_army and not army.game.needs_resolved
                 %span.my-army= army.name
                 %span.move Move
+              - elsif army.user == current_user and army.needs_resolved
+                %span.my-army= army.name
+                %span.move.battle-resolve Move
               - elsif army.user == current_user
                 %span.my-army= army.name
               - elsif army.allied_to(current_user)

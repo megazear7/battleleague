@@ -84,7 +84,7 @@ class ArmiesController < ApplicationController
     id = params[:id] ? params[:id] : params[:army_id]
     @army = Army.find(id)
     if params[:x_cord] and params[:y_cord]
-      if not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])
+      if (not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])) or (@army.needs_resolved)
         redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
         return
       elsif (@army != @army.game.current_army) and (@army.x_cord and @army.y_cord)
@@ -92,6 +92,9 @@ class ArmiesController < ApplicationController
         return
       end
     end
+
+    @army.is_loser == false
+    @army.is_winner == false
 
     @army.turn_count = 0
     @army.save

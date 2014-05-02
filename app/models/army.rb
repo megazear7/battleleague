@@ -8,6 +8,10 @@ class Army < ActiveRecord::Base
   validates  :name, presence: true
   validate :cordinates_with_limits
 
+  def needs_resolved
+    self.is_winner or self.is_loser
+  end
+
   def allied_to user
     armies = []
     user.armies.where(game: self.game).each do |army|

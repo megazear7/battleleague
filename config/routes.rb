@@ -17,6 +17,7 @@ Battleleague::Application.routes.draw do
 
   resources :games do
     get 'set_turns'
+    get 'resolve_battle'
   end
 
   devise_for :users
