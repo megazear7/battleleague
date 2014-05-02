@@ -14,9 +14,9 @@ module ApplicationHelper
 
   def color_of_space space, current_user
     if space.army and ( space.army.allied_to(current_user) or current_user.armies.include?(space.army) )
-      return "blue"
+      "blue"
     elsif space.army
-      return "red"
+      "red"
     end
   end
 

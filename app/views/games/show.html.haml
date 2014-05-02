@@ -92,13 +92,13 @@
 .container.comment-section
   %table.table.table-hover.table-responsive.table-condensed.table-striped
     - @game.comments.each do |c|
-      - if c.comment_type == "public" or ( c.comment_type == "team" and c.army.alliance and @game.armies.where(user: current_user).first and c.army.alliance == @game.armies.where(user: current_user).first.alliance ) or ( c.comment_type == "whisper" and ( c.user == current_user or c.army.user == current_user ) )
+      - if c.is_viewable_by(current_user)
         %tr
           %span.comment
             %td.col-md-3
-              - if c.army.user == current_user
+              - if c.army.user == current_user and c.comment_type != "whisper"
                 You said
-              - else
+              - elsif c.comment_type != "whisper"
                 = c.army.user.name + " says"
               - if c.comment_type == "public"
                 (public)
@@ -107,16 +107,16 @@
               - elsif c.comment_type == "whisper"
                 - if c.army.user == current_user
                   - if c.user == current_user
-                    = "(you whispered to yourself)"
+                    = "You whispered to yourself:"
                   - else
-                    = "(you whispered to " + c.user.name + ")"
+                    = "You whispered to " + c.user.name
                 - else
-                  = "(whisper from " + c.army.user.name + ")"
+                  = c.army.user.name + " whispered to you:"
             %td
               = c.content
 %br
 %br
-- if @game.armies.where(user: current_user).first
+- if @game.has_joined(current_user)
   .row
     = simple_form_for @comment do |f|
       .col-md-4

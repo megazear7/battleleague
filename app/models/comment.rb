@@ -10,4 +10,12 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def is_viewable_by user
+    if self.comment_type == "public" or (self.comment_type == "team" and self.army.allied_to(user))  or ( self.comment_type == "whisper" and ( self.user == user or self.army.user == user ) )
+      true
+    else
+      false
+    end
+  end
+
 end

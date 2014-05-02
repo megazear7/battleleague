@@ -15,4 +15,12 @@ class Game < ActiveRecord::Base
     self.users
   end
 
+  def has_joined user
+    if self.armies.where(user: user).first
+      true
+    else
+      false
+    end
+  end
+
 end
