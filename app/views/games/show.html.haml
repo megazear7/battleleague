@@ -74,7 +74,7 @@
             %td= army.user.name
             %td= army.army_type
             %td= army.point_cost
-            - if army == @game.current_army
+            - if army == @game.current_army and army.turn_count != 0
               %td.enemy-next-turn 
                 = army.turn_count
                 &nbsp;(Next Move)
