@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502131101) do
+ActiveRecord::Schema.define(version: 20140502151953) do
 
   create_table "alliances", force: true do |t|
     t.string   "name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20140502131101) do
     t.integer  "y_cord"
     t.integer  "turn_count"
     t.integer  "alliance_id"
+    t.boolean  "is_winner"
+    t.boolean  "is_loser"
   end
 
   create_table "comments", force: true do |t|
