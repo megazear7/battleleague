@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
     space = Space.new(x_cord: x, y_cord: y, terrain: "", victory_points: 0, map: map) if not space
     space.armies.each do |army1|
       space.armies.each do |army2|
-        return true if not army1.allied_to(army2.user)
+        return true if (not army1.allied_to(army2.user)) and (army1 != army2)
       end
     end
     return false

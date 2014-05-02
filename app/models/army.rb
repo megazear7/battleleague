@@ -6,8 +6,6 @@ class Army < ActiveRecord::Base
   validates  :movement_rate, presence: true
   validates  :game_id, presence: true
   validates  :name, presence: true
-  
-
   validate :cordinates_with_limits
 
   def allied_to user
