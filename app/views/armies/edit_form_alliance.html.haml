@@ -1,25 +1,14 @@
 %h1 Editing army
-= simple_form_for @army do |f|
+= simple_form_for @army, url: army_update_form_alliance_path(@army) do |f|
   - if @army.errors.any?
     #error_explanation
       %h2= "#{pluralize(@army.errors.count, "error")} prohibited this army from being saved:"
       %ul
         - @army.errors.full_messages.each do |msg|
           %li= msg
-  %h1= @army.name
-  .row
-    .col-md-8
-      = f.input :description, input_html: { class: "string form-control" }
   .row
     .col-md-2
-      = f.input :army_type, input_html: { class: "string form-control" }
-    .col-md-2
-      = f.input :point_cost, input_html: { class: "string form-control" }
-    .col-md-2
-      = f.input :movement_rate, input_html: { class: "string form-control" }
-
-  = f.hidden_field :user_id, value: current_user.id
-
+      = f.association :alliance, collection: @army.game.alliances, input_html: { class: "dropdown form-control" }
   %br
   .actions
     = f.submit 'Save', class: "btn btn-primary"

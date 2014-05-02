@@ -4,10 +4,12 @@ Battleleague::Application.routes.draw do
   resources :alliances
 
   resources :armies do
-    get 'form_alliance'
-    get 'full_edit'
+    get 'edit_form_alliance'
+    patch 'update_form_alliance'
+    get 'edit_move'
+    put 'move'
   end
-  put 'move/:id' => 'armies#move'
+  put 'move/:id' => 'armies#move' # this is needed for the complicated move form on the game show page
 
   resources :spaces
 

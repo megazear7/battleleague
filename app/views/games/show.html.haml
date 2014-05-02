@@ -41,12 +41,12 @@
             %td= link_to army.name, army
             - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
               %td 
-                = simple_form_for army do |f|
+                = simple_form_for army, url: army_move_path(army), method: :put do |f|
                   = f.hidden_field :x_cord, value: army.x_cord
                   = f.hidden_field :y_cord, value: army.y_cord
                   = f.submit "Skip Move", class: "skip"
             - elsif not (army.x_cord and army.y_cord)
-              %td= link_to "Place Army", edit_army_path(army)
+              %td= link_to "Place Army", army_edit_move_path(army)
             - else
               %td
             %td  You
@@ -57,17 +57,17 @@
                 = army.turn_count
                 &nbsp;(Next Move)
             - elsif army.turn_count == 0
-              %td= link_to "Needs Placed", edit_army_path(army)
+              %td= link_to "Needs Placed", army_edit_move_path(army)
             - else
               %td= army.turn_count
             - if army.alliance
               %td
                 = army.alliance.name
-                = link_to "Leave", army_path(army, alliance_id: 0), method: :put
+                = link_to "Leave", army_update_form_alliance_path(army, alliance_id: 0), method: :patch
             - else
               %td
                 Not Allied -
-                = link_to "Ally", army_form_alliance_path(army)
+                = link_to "Ally", army_edit_form_alliance_path(army)
           - else
             %td= army.name
             %td
