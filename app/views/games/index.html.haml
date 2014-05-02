@@ -6,13 +6,19 @@
     %th Rule Set
     %th Map Name
     %td
+    %td
 
   - @games.each do |game|
     %tr
       %td= link_to game.name, game
       %td= game.rule_set
       %td= game.map.name
-      %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - if game.game_master == current_user
+        %td= link_to 'Edit', edit_game_path(game)
+        %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - else
+        %td
+        %td
 
 %br
 

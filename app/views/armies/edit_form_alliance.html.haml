@@ -8,7 +8,7 @@
           %li= msg
   .row
     .col-md-2
-      = f.association :alliance, collection: @army.game.alliances, input_html: { class: "dropdown form-control" }
+      = f.association :alliance, collection: alliances_available_to(@army), input_html: { class: "dropdown form-control" }
   %br
   .actions
     = f.submit 'Save', class: "btn btn-primary"

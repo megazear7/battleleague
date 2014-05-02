@@ -83,7 +83,8 @@ class MapsController < ApplicationController
     def map_params
       params.require(:map).permit(
         :name,
-        :description
+        :description,
+        :user_id
       )
     end
 end

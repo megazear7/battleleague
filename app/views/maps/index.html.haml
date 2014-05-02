@@ -5,7 +5,9 @@
     %th Name
     %th Width
     %th Height
-    %th Destroy
+    %th Creator
+    %th
+    %th
 
   - @maps.each do |map|
     - if not map.game
@@ -13,7 +15,13 @@
         %td= link_to map.name, map
         %td= map.width
         %td= map.height
-        %td= link_to 'Destroy', map, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= map.user ? map.user.name : "Unknown"
+        - if map.user == current_user
+          %td= link_to 'Edit', edit_map_path(map)
+          %td= link_to 'Delete', map, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - else
+          %td
+          %td
 
 %br
 

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :armies, dependent: :destroy
 
   has_and_belongs_to_many :games
+  has_and_belongs_to_many :alliances
   has_many :games_as_master, :foreign_key => 'game_master_id', :class_name => "Game"
 
   def games_where_I_am_a_player

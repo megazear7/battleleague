@@ -1,6 +1,7 @@
 class Map < ActiveRecord::Base
   has_one :game
   has_many :spaces
+  belongs_to :user
 
   def self.for_selection
     maps = []

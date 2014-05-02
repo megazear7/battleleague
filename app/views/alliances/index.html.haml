@@ -5,8 +5,8 @@
     %th Name
     %th Game
     %th Armies
-    %th Delete
-    %th Edit
+    %th
+    %th
 
   - @alliances.each do |alliance|
     %tr
@@ -19,9 +19,11 @@
           = army.name
         - if not any
           This alliance has no armies yet
-      %td= link_to 'Delete', alliance, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      %td= link_to 'Edit', edit_alliance_path(alliance)
-
+      - if alliance.users.include? current_user
+        %td= link_to 'Edit', edit_alliance_path(alliance)
+        %td= link_to 'Delete', alliance, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - else
+        %td
+        %td
 %br
-
 = link_to 'New Alliance', new_alliance_path, class: "btn btn-primary"

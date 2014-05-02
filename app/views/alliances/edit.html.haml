@@ -2,6 +2,7 @@
 
 = render 'form'
 
-= link_to 'Show', @alliance
-\|
-= link_to 'Back', alliances_path
+%br
+.btn-group
+  = link_to 'Show', @alliance, class: "btn btn-default"
+  = link_to 'Back', alliances_path, class: "btn btn-default"

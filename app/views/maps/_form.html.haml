@@ -20,6 +20,8 @@
     .col-md-3
       %label Height:
       %input{ name: "height", class: "string form-control" }
+  
+  = f.hidden_field :user_id, value: current_user.id
 
   %br
   .actions

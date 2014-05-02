@@ -25,7 +25,6 @@ class AlliancesController < ApplicationController
   # POST /alliances.json
   def create
     @alliance = Alliance.new(alliance_params)
-
     respond_to do |format|
       if @alliance.save
         format.html { redirect_to @alliance.game, notice: 'Alliance was successfully created.' }
@@ -71,7 +70,8 @@ class AlliancesController < ApplicationController
     def alliance_params
       params.require(:alliance).permit(
         :name,
-        :game_id
+        :game_id,
+        user_ids: []
       )
     end
 end

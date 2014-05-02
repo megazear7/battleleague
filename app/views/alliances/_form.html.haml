@@ -15,6 +15,9 @@
         = f.hidden_field :game_id, value: params[:game_id]
       - else
         = f.association :game, input_html: { class: "dropdown form-control" }
+  .row
+    .col-md-3
+      = f.association :users, as: :check_boxes
 
   %br
   .actions
