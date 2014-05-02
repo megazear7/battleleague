@@ -1,7 +1,4 @@
-- dimension = 520 / map.width
-- width  = dimension * map.width
-- height = dimension * map.height
-.map-container{ style: "width: #{width}px; height: #{height}px" }
+.map-container{ style: "width: 95%" }
   - map.height.times do |y|
     - map.width.times do |x|
       - space = map.spaces.where(x_cord: x+1, y_cord: y+1).first

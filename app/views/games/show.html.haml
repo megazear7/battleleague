@@ -1,13 +1,133 @@
 .row
-  .btn-group
-    - if current_user.games.include? @game
-      = link_to "New Army", new_army_path(game_id: @game.id), class: "btn btn-default"
-    - else
-      = link_to "Join Game", new_army_path(game_id: @game.id), class: "btn btn-default", notice: "Create an army to join the game"
-    = link_to "New Alliance", new_alliance_path(game_id: @game.id), class: "btn btn-default"
+  .col-md-4
+    .row
+      %h2= @game.name
+    .row
+      .btn-group
+        = link_to 'Back', games_path, class: "btn btn-default"
+        - if @game.game_master == current_user
+          = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
+          = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
+    %br
+    .row
+      .btn-group
+        - if current_user.games.include? @game
+          = link_to "New Army", new_army_path(game_id: @game.id), class: "btn btn-default"
+        - else
+          = link_to "Join Game", new_army_path(game_id: @game.id), class: "btn btn-default", notice: "Create an army to join the game"
+        = link_to "New Alliance", new_alliance_path(game_id: @game.id), class: "btn btn-default"
+    %br
+    .row
+      %table.table.table-hover.table-responsive
+        %tr
+          %th Name
+          %th
+          %th Player
+          %th Turn Count
+          %th Alliance
+        - @game.armies.order('turn_count DESC').each do |army|
+          %tr
+            - if army.user == current_user
+              %td= link_to army.name, army
+              - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
+                %td 
+                  = simple_form_for army, url: army_move_path(army), method: :put do |f|
+                    = f.hidden_field :x_cord, value: army.x_cord
+                    = f.hidden_field :y_cord, value: army.y_cord
+                    = f.submit "Skip Move", class: "skip"
+              - elsif not (army.x_cord and army.y_cord)
+                %td= link_to "Place Army", army_edit_move_path(army)
+              - else
+                %td
+              %td  You
+              - if army == @game.current_army and not army.turn_count == 0
+                %td.my-next-turn 
+                  = army.turn_count
+                  &nbsp;(Next Move)
+              - elsif army.turn_count == 0
+                %td= link_to "Needs Placed", army_edit_move_path(army)
+              - else
+                %td= army.turn_count
+              - if army.alliance
+                %td
+                  = army.alliance.name
+                  = link_to "Leave", army_update_form_alliance_path(army, alliance_id: 0), method: :patch
+              - else
+                %td
+                  Not Allied -
+                  = link_to "Ally", army_edit_form_alliance_path(army)
+            - else
+              %td= army.name
+              %td
+              %td= army.user.name
+              - if army == @game.current_army and army.turn_count != 0
+                %td.enemy-next-turn 
+                  = army.turn_count
+                  &nbsp;(Next Move)
+              - elsif army.turn_count == 0
+                %td Not Placed
+              - else
+                %td= army.turn_count
+              - if army.alliance
+                %td= army.alliance.name
+              - else
+                %td No Alliance
+    .row
+      .comment-section
+        %table.table.table-hover.table-responsive.table-condensed.table-striped
+          - @game.comments.each do |c|
+            - if c.is_viewable_by(current_user)
+              %tr
+                %span.comment
+                  %td.col-md-5
+                    - if c.army.user == current_user and c.comment_type != "whisper"
+                      You said
+                    - elsif c.comment_type != "whisper"
+                      = c.army.user.name + " says"
+                    - if c.comment_type == "public"
+                      (public)
+                    - elsif c.comment_type == "team"
+                      = "(Message to " + c.army.alliance.name + ")"
+                    - elsif c.comment_type == "whisper"
+                      - if c.army.user == current_user
+                        - if c.user == current_user
+                          = "You whispered to yourself:"
+                        - else
+                          = "You whispered to " + c.user.name
+                      - else
+                        = c.army.user.name + " whispered to you:"
+                  %td
+                    = c.content
+    .row
+      - if @game.has_joined(current_user)
+        = simple_form_for @comment do |f|
+          .row
+            .col-md-12
+              = f.input :content, input_html: { class: "string form-control" }
+          .row
+            .col-md-5
+              = f.input :comment_type, collection: comment_types(@game, current_user), selected: "Public", input_html: { class: "dropdown form-control" }
+            .col-md-4{ id: "whisper" }
+              = f.association :user, label: "Whisper To", collection: @game.users, input_html: { class: "dropdown form-control" }
+            = f.hidden_field :army_id, value: @game.armies.where(user: current_user).first.id
+            .col-md-3
+              %br
+              = f.submit "Create", class: "btn btn-primary shift-down pull-right"
+      - else 
+        You must 
+        = link_to "join", new_army_path(game_id: @game.id)
+        the game to comment
+  .col-md-8
+    .row
+      .col-md-12
+        = render partial: "maps/map", locals: { map: @game.map, is_edit: false }
+    .row
+      .col-md-12
+        %p.left-margin * Remember that you might not be close enough to see some enemy armies!
+%br
+%br
 .row
-  .col-md-6
-    %h2= @game.name
+  .col-md-4
     %p
       %b Description:
       %br
@@ -24,8 +144,7 @@
       %b Other Details:
       %br
       =  @game.details
-
-    %hr
+  .col-md-8
     %table.table.table-hover.table-responsive
       %tr
         %th Name
@@ -86,63 +205,9 @@
               %td= army.alliance.name
             - else
               %td No Alliance
-    %p.left-margin * Remember that you might not be close enough to see some enemy armies!
-  .col-md-6
-    = render partial: "maps/map", locals: { map: @game.map, is_edit: false }
-.container.comment-section
-  %table.table.table-hover.table-responsive.table-condensed.table-striped
-    - @game.comments.each do |c|
-      - if c.is_viewable_by(current_user)
-        %tr
-          %span.comment
-            %td.col-md-3
-              - if c.army.user == current_user and c.comment_type != "whisper"
-                You said
-              - elsif c.comment_type != "whisper"
-                = c.army.user.name + " says"
-              - if c.comment_type == "public"
-                (public)
-              - elsif c.comment_type == "team"
-                = "(Message to " + c.army.alliance.name + ")"
-              - elsif c.comment_type == "whisper"
-                - if c.army.user == current_user
-                  - if c.user == current_user
-                    = "You whispered to yourself:"
-                  - else
-                    = "You whispered to " + c.user.name
-                - else
-                  = c.army.user.name + " whispered to you:"
-            %td
-              = c.content
 %br
 %br
-- if @game.has_joined(current_user)
-  .row
-    = simple_form_for @comment do |f|
-      .col-md-4
-        = f.input :content, input_html: { class: "string form-control" }
-      .col-md-2
-        = f.input :comment_type, collection: comment_types(@game, current_user), selected: "Public", input_html: { class: "dropdown form-control" }
-      .col-md-2{ id: "whisper" }
-        = f.association :user, label: "Whisper To", collection: @game.users, input_html: { class: "dropdown form-control" }
-      = f.hidden_field :army_id, value: @game.armies.where(user: current_user).first.id
-      .col-md-2
-        %br
-        = f.submit class: "btn btn-primary shift-down"
-- else 
-  You must 
-  = link_to "join", new_army_path(game_id: @game.id)
-  the game to comment
-
 %br
-%br
-.btn-group
-  = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
-  = link_to 'Back', games_path, class: "btn btn-default"
-  = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
-%br
-%br
-
 .hidden
   - if @game.current_army
     = number_field_tag :current_army_id, @game.current_army.id

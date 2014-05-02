@@ -9,4 +9,5 @@
   #  y = id.substring(id.indexOf('-')+1, id.length)
   #  alert(x + " " + y)
 
-
+$ ->
+  $(".map-container").height($(".map-container").width())
