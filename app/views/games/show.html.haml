@@ -1,16 +1,8 @@
 .row
   .col-md-4
     .row
-      %h2= @game.name
-    .row
-      .btn-group
-        = link_to 'Back', games_path, class: "btn btn-default"
-        - if @game.game_master == current_user
-          = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
-          = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
-    %br
-    .row
-      .btn-group
+      %br
+      .btn-group.pull-left
         - if current_user.games.include? @game
           = link_to "New Army", new_army_path(game_id: @game.id), class: "btn btn-default"
         - else
@@ -205,6 +197,13 @@
               %td= army.alliance.name
             - else
               %td No Alliance
+%br
+.btn-group
+  = link_to 'Back', games_path, class: "btn btn-default"
+  - if @game.game_master == current_user
+    = link_to 'Edit', edit_game_path(@game), class: "btn btn-default"
+    = link_to 'Reset Turn Count', game_set_turns_path(@game), class: "btn btn-default"
+%br
 %br
 %br
 %br
