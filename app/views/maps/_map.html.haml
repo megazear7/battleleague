@@ -10,7 +10,7 @@
         - temp_space = true
       - w = (100/map.width) * 0.95
       - g = (100/map.width) * 0.05
-      %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "background-color: #{space.color(current_user)};width: #{w}%; height: #{w}%; position: absolute; bottom: #{(w + g) * (space.y_cord-1)}%; left: #{(w + g) * (space.x_cord-1)}%;"} 
+      %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "background-color: #{color_of_space(space, current_user)};width: #{w}%; height: #{w}%; position: absolute; bottom: #{(w + g) * (space.y_cord-1)}%; left: #{(w + g) * (space.x_cord-1)}%;"} 
         - if space.terrain != ""
           = space.terrain
         - if space.victory_points and space.victory_points > 0
