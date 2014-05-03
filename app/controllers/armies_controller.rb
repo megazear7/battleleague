@@ -83,6 +83,7 @@ class ArmiesController < ApplicationController
   def move
     id = params[:id] ? params[:id] : params[:army_id]
     @army = Army.find(id)
+    
     if params[:x_cord] and params[:y_cord]
       if (not @army.move_check(params[:army][:x_cord], params[:army][:y_cord])) or (@army.needs_resolved)
         redirect_to edit_army_path(@army), notice: "This army can only move " + @army.movement_rate.to_s + " and is currently at (" + @army.x_cord.to_s + "," + @army.y_cord.to_s + ")"
@@ -93,15 +94,17 @@ class ArmiesController < ApplicationController
       end
     end
 
+    if not @army.is_loser and not @army.is_winner
+      @army.turn_count = 0
+      @army.save
+      @army.game.armies.each do |army|
+        army.turn_count += 1 if army.turn_count
+        army.save
+      end
+    end
+
     @army.is_loser = false
     @army.is_winner = false
-
-    @army.turn_count = 0
-    @army.save
-    @army.game.armies.each do |army|
-      army.turn_count += 1 if army.turn_count
-      army.save
-    end
 
     respond_to do |format|
       space = @army.game.map.spaces.where(x_cord: @army.x_cord, y_cord: @army.y_cord).first

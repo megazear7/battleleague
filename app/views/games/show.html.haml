@@ -208,11 +208,6 @@
 %br
 %br
 .hidden
-  - if @game.current_army
-    = number_field_tag :current_army_id, @game.current_army.id
-    = hidden_field_tag "movement_rate", @game.current_army.movement_rate
-
-.hidden
   .move-icon
     = form_tag :action => 'move', :controller => 'armies', :method => :put do |f|
       = hidden_field_tag "army[x_cord]"

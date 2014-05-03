@@ -27,11 +27,18 @@
             - if army.user == current_user or army.close_to(current_user) or army.allied_to(current_user)
               - if army.user == current_user and army == army.game.current_army and not army.game.needs_resolved
                 %span.my-army= army.name
+                = hidden_field_tag "army_id_" + army.id.to_s, army.id
+                = hidden_field_tag "movement_rate_" + army.id.to_s, army.movement_rate
                 %span.move Move
                 %br
               - elsif army.user == current_user and army.needs_resolved
                 %span.my-army= army.name
-                %span.move.battle-resolve Move
+                = hidden_field_tag "army_id_" + army.id.to_s, army.id
+                = hidden_field_tag "movement_rate_" + army.id.to_s, army.movement_rate
+                - if army.is_winner
+                  %span.move.battle-resolve-winner Victory!
+                - else
+                  %span.move.battle-resolve-loser Defeat!
                 %br
               - elsif army.user == current_user
                 %span.my-army= army.name
