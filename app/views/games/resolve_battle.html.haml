@@ -10,7 +10,6 @@
   = f.fields_for :armies do |army|
     - if @game.battling_armies.include? army.object
       = army.input :is_winner, as: :boolean, label: army.object.name, input_html: { class: "is_winner" }
-      = army.hidden_field :is_loser, class: "is_loser"
       = army.hidden_field :id, value: army.object.id
   %br
 

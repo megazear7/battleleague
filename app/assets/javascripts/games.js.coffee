@@ -45,31 +45,41 @@ $ ->
     else
       $("#whisper").hide()
 
-  $(".is_winner").each (event) ->
-    if $(this).val() == "1"
-      value == 0
+  $(".space").on 'click', (event) ->
+    if $(this).find("#is_clicked").val() == "0"
+      $(this).width($(this).width() * 1.5)
+      $(this).height($(this).height() * 1.5)
+      $(this).css("left", parseFloat($(this).css("left")) - $(this).width() * 0.125)
+      $(this).css("bottom", parseFloat($(this).css("bottom")) - $(this).height() * 0.125)
+      $(this).find("#is_clicked").val(1)
     else
-      value == 1
-    $(this).parent().next().val(value)
+      $(this).css("left", parseFloat($(this).css("left")) + $(this).width() * 0.125)
+      $(this).css("bottom", parseFloat($(this).css("bottom")) + $(this).height() * 0.125)
+      $(this).width($(this).width() * (1/1.5))
+      $(this).height($(this).height() * (1/1.5))
+      $(this).find("#is_clicked").val(0)
 
-  $(".is_winner").on 'change', (event) ->
-    if $(this).val() == "1"
-      value == 0
-    else
-      value == 1
-    $(this).parent().next().val(value)
+  $(".space").on 'mouseleave', (event) ->
+    if $(this).find("#is_clicked").val() == "1"
+      $(this).css("left", parseFloat($(this).css("left")) + $(this).width() * 0.125)
+      $(this).css("bottom", parseFloat($(this).css("bottom")) + $(this).height() * 0.125)
+      $(this).width($(this).width() * (1/1.5))
+      $(this).height($(this).height() * (1/1.5))
+      $(this).find("#is_clicked").val(0)
 
-  $(".space").on 'mouseover', (event) ->
-    $(this).width($(this).width() * 2)
-    $(this).height($(this).height() * 2)
-    $(this).css("left", parseFloat($(this).css("left")) - $(this).width() * 0.25)
-    $(this).css("bottom", parseFloat($(this).css("bottom")) - $(this).height() * 0.25)
+  #$(".is_winner").each (event) ->
+  #  if $(this).val() == "1"
+  #    value == 0
+  #  else
+  #    value == 1
+  #  $(this).parent().next().val(value)
 
-  $(".space").mouseout (event) ->
-    $(this).css("left", parseFloat($(this).css("left")) + $(this).width() * 0.25)
-    $(this).css("bottom", parseFloat($(this).css("bottom")) + $(this).height() * 0.25)
-    $(this).width($(this).width() * (1/2))
-    $(this).height($(this).height() * (1/2))
+  #$(".is_winner").on 'change', (event) ->
+  #  if $(this).val() == "1"
+  #    value == 0
+  #  else
+  #    value == 1
+  #  $(this).parent().next().val(value)
 
 
 

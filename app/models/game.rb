@@ -10,8 +10,8 @@ class Game < ActiveRecord::Base
   def battling_armies
     (1..self.map.width).each do |x|
       (1..self.map.height).each do |y|
-        space = self.map.spaces.where(x_cord: x+1, y_cord: y+1).first
-        space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "", victory_points: 0, map: map) if not space
+        space = self.map.spaces.where(x_cord: x, y_cord: y).first
+        space = Space.new(x_cord: x, y_cord: y, terrain: "", victory_points: 0, map: map) if not space
         space.armies.each do |army1|
           space.armies.each do |army2|
             if not army1.allied_to(army2.user)
@@ -50,8 +50,8 @@ class Game < ActiveRecord::Base
     return true if self.armies.where(is_loser: true).size > 0
     (1..self.map.width).each do |x|
       (1..self.map.height).each do |y|
-        space = self.map.spaces.where(x_cord: x+1, y_cord: y+1).first
-        space = Space.new(x_cord: x+1, y_cord: y+1, terrain: "", victory_points: 0, map: map) if not space
+        space = self.map.spaces.where(x_cord: x, y_cord: y).first
+        space = Space.new(x_cord: x, y_cord: y, terrain: "", victory_points: 0, map: map) if not space
         space.armies.each do |army1|
           space.armies.each do |army2|
             if not army1.allied_to(army2.user) and army1 != army2

@@ -74,6 +74,10 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
   def update
+    @game.battling_armies.each do |army|
+      army.is_loser = true if army.is_winner == false
+      army.save
+    end
     respond_to do |format|
       if @game.update(game_params)
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
@@ -116,7 +120,8 @@ class GamesController < ApplicationController
         :game_master_id,
         armies_attributes: [
           :id,
-          :is_winner
+          :is_winner,
+          :is_loser
         ]
       )
     end

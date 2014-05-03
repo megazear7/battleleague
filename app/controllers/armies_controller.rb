@@ -93,8 +93,8 @@ class ArmiesController < ApplicationController
       end
     end
 
-    @army.is_loser == false
-    @army.is_winner == false
+    @army.is_loser = false
+    @army.is_winner = false
 
     @army.turn_count = 0
     @army.save
