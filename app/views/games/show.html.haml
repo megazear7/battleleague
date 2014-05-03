@@ -21,7 +21,7 @@
           %tr
             - if army.user == current_user
               %td= link_to army.name, army
-              - if army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord)
+              - if ( army == @game.current_army and army.turn_count != 0 and (army.x_cord and army.y_cord) ) or army.needs_resolved
                 %td 
                   = simple_form_for army, url: army_move_path(army), method: :put do |f|
                     = f.hidden_field :x_cord, value: army.x_cord
