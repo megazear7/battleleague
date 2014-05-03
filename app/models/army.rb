@@ -9,7 +9,11 @@ class Army < ActiveRecord::Base
   validate :cordinates_with_limits
 
   def needs_resolved
-    self.is_winner or self.is_loser
+    if self.is_winner or self.is_loser
+      true 
+    else
+      false
+    end
   end
 
   def allied_to user

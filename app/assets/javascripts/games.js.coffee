@@ -58,3 +58,31 @@ $ ->
     else
       value == 1
     $(this).parent().next().val(value)
+
+  $(".space").on 'mouseover', (event) ->
+    $(this).width($(this).width() * 2)
+    $(this).height($(this).height() * 2)
+    $(this).css("left", parseFloat($(this).css("left")) - $(this).width() * 0.25)
+    $(this).css("bottom", parseFloat($(this).css("bottom")) - $(this).height() * 0.25)
+
+  $(".space").mouseout (event) ->
+    $(this).css("left", parseFloat($(this).css("left")) + $(this).width() * 0.25)
+    $(this).css("bottom", parseFloat($(this).css("bottom")) + $(this).height() * 0.25)
+    $(this).width($(this).width() * (1/2))
+    $(this).height($(this).height() * (1/2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

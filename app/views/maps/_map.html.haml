@@ -19,7 +19,7 @@
         - if had_info
           %br
         - if map.game and current_user
-          - armies = map.game.armies.where(x_cord: x+1, y_cord: y+1)
+          - armies = space.armies
           - if map.game.has_battle_at(x+1, y+1) and not map.game.has_unresolved_armies_at(x+1, y+1)
             = link_to "Resolve Battle", game_resolve_battle_path(map.game)
           - armies.each do |army|
