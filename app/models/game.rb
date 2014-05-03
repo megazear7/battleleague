@@ -70,7 +70,9 @@ class Game < ActiveRecord::Base
   end
 
   def players
-    self.users
+    users = self.users
+    users = users.uniq
+    users
   end
 
   def has_joined user

@@ -95,12 +95,12 @@
         = simple_form_for @comment do |f|
           .row
             .col-md-12
-              = f.input :content, input_html: { class: "string form-control" }
+              = f.input :content, label: "Comment", input_html: { class: "string form-control" }
           .row
             .col-md-5
-              = f.input :comment_type, collection: comment_types(@game, current_user), selected: "Public", input_html: { class: "dropdown form-control" }
+              = f.input :comment_type, label: "Type", collection: comment_types(@game, current_user), selected: "Public", input_html: { class: "dropdown form-control" }
             .col-md-4{ id: "whisper" }
-              = f.association :user, label: "Whisper To", collection: @game.users, input_html: { class: "dropdown form-control" }
+              = f.association :user, label: "Whisper To", collection: @game.players, input_html: { class: "dropdown form-control" }
             = f.hidden_field :army_id, value: @game.armies.where(user: current_user).first.id
             .col-md-3
               %br
