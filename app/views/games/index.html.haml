@@ -5,6 +5,8 @@
     %th Name
     %th Rule Set
     %th Map Name
+    %th Game Master
+    %th
     %td
     %td
 
@@ -14,9 +16,19 @@
       %td= game.rule_set
       %td= game.map.name
       - if game.game_master == current_user
+        %td  You
+        - if current_user.games.include? game
+          %td
+        - else
+          %td= link_to "Join Game", new_army_path(game_id: game.id), class: "", notice: "Create an army to join the game"
         %td= link_to 'Edit', edit_game_path(game)
         %td= link_to 'Delete', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
       - else
+        %td= game.game_master.name
+        - if current_user.games.include? game
+          %td
+        - else
+          %td= link_to "Join Game", new_army_path(game_id: game.id), class: "", notice: "Create an army to join the game"
         %td
         %td
 
