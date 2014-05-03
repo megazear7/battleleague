@@ -10,7 +10,7 @@
       %span.space{id: "#{space.x_cord}-#{space.y_cord}", style: "background-color: #{color_of_space(space, current_user)};width: #{w}%; height: #{w}%; position: absolute; bottom: #{(w + g) * (space.y_cord-1)}%; left: #{(w + g) * (space.x_cord-1)}%;"} 
         = hidden_field_tag "is_clicked", 0
         - had_info = false
-        - if space.terrain != ""
+        - if space.terrain and space.terrain != ""
           = space.terrain
           - had_info = true
         - if space.victory_points and space.victory_points > 0
@@ -28,15 +28,20 @@
               - if army.user == current_user and army == army.game.current_army and not army.game.needs_resolved
                 %span.my-army= army.name
                 %span.move Move
+                %br
               - elsif army.user == current_user and army.needs_resolved
                 %span.my-army= army.name
                 %span.move.battle-resolve Move
+                %br
               - elsif army.user == current_user
                 %span.my-army= army.name
+                %br
               - elsif army.allied_to(current_user)
                 %span.allied-army= army.name + " (" + army.user.name + ")"
+                %br
               - else
                 %span.enemy-army= army.name + " (" + army.user.name + ")"
+                %br
         - if is_edit
           - if temp_space
             = form_tag new_space_path, :method => 'get' do
