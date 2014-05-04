@@ -81,11 +81,12 @@
               %li
                 = link_to "Login", new_user_session_path
     .container
-      - flash.each do |name, msg|
-        - if msg.is_a?(String)
-          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
-            %a.close{"data-dismiss" => "alert"} &times;
-            = content_tag :div, msg, :id => "flash_#{name}"
+      - if not ( params[:controller] == "games" and params[:action] == "show" )
+        - flash.each do |name, msg|
+          - if msg.is_a?(String)
+            %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+              %a.close{"data-dismiss" => "alert"} &times;
+              = content_tag :div, msg, :id => "flash_#{name}"
       = yield
   %body
 %html
